@@ -1,0 +1,18 @@
+.update{
+	width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.indexcontainer{
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-top: 50px;}
+
+.addbutton{
+	margin-top: 30px;
+}
+
+.friendlist{
+	font-size: 14px;
+}
