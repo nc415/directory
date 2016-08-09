@@ -23,9 +23,9 @@ class Person(models.Model):
 
 class Page(models.Model):
 	person = models.ForeignKey(Person)
-	title = models.CharField(max_length=128, unique=True)
+	title = models.CharField(max_length=128, unique=False)
 	description=models.CharField(null=True, blank=True, max_length=2000)
-	page_slug = models.SlugField(blank=True, unique=True)
+	page_slug = models.SlugField(blank=True, unique=False)
 	created_at = models.DateTimeField(default=datetime.now, blank=True, null=True)
 
 
