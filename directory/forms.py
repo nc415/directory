@@ -1,6 +1,8 @@
 from django import forms
 from directory.models import Page, Person
 from datetime import datetime
+from django.db.models import Q
+
 
 class PersonForm(forms.ModelForm):
 	name = forms.CharField(max_length=128, help_text="please enter a person name.")

@@ -11,5 +11,5 @@ urlpatterns =[
 #(-) denoted by \-, and we can match as many of these as we like denoted by the [ ]+ expression.
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/$', views.show_person, name='show_person'),
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<page_title_slug>[\w\-]+)$', views.edit_page, name='edit_page'),
-
+	
 ]

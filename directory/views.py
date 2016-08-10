@@ -7,10 +7,14 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django import forms
 from django.shortcuts import get_object_or_404
+import re
 
-# Create your views here.
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+
 def index(request):
-	friend_list=Person.objects.order_by('-date')[:5]
+	friend_list=Person.objects.order_by('description')[:25]
 	context_dict = {'Friends': friend_list}
 
 	return render(request, 'directory/index.html', context=context_dict)
