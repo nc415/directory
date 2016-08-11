@@ -3,18 +3,23 @@ from django.http import HttpResponse
 from directory.models import Person, Page
 from directory.forms import PersonForm,PageForm
 from django.db.models import manager
+
+from django.conf.urls import patterns, include, url
 from django.utils import timezone
 from django.shortcuts import redirect
 from django import forms
 from django.shortcuts import get_object_or_404
 import re
-
+from django.views.generic.edit import UpdateView
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+def edit_page(request):
+	model=PageForm
+	fields=['title']
 
 def index(request):
-	friend_list=Person.objects.order_by('description')[:25]
+	friend_list=Person.objects.order_by('rank')[:25]
 	context_dict = {'Friends': friend_list}
 
 	return render(request, 'directory/index.html', context=context_dict)
@@ -38,6 +43,20 @@ def show_person(request, person_name_slug):
 
 	return render(request, 'directory/person.html', context_dict)
 
+
+def show_page(request, person_name_slug, page_title_slug):
+	context_dict = {}
+
+	try: 
+		p1 = Page.objects.get(page_slug=page_title_slug)
+	
+		context_dict['p1']=p1
+
+	except Page.DoesNotExist:
+		print("no page")
+		context_dict['p1']=None
+
+	return render(request, 'directory/page.html', context_dict)
 
 
 def add_person(request):
@@ -79,29 +98,23 @@ def add_page(request, person_name_slug):
 	context_dict ={'form':form, 'person':person}
 	return render(request, 'directory/add_page.html', context_dict)
 
+def update_page(request, person_name_slug, page_title_slug, pk=None):
 
-def edit_page(request, person_name_slug, page_title_slug):
-	try:
-		person=Person.objects.get(slug=person_name_slug)
-	except Person.DoesNotExist:
-		person=None
+    obj = get_object_or_404(Page, pk=pk)
+    form = PageForm(request.POST or None,
+                        request.FILES or None, instance=obj)
+    if request.method == 'POST':
+        if form.is_valid():
+           form.save()
+           return redirect('/')
+    return render(request, 'directory/edit_page.html', {'form': form})
 
-	post = get_object_or_404(Page, id=2)
-	if request.method == "POST":
-		form = PageForm(request.POST, instance=post)
-		if form.is_valid():
-			post = form.save(commit=False)
-			post.author = request.user
-			post.published_date = timezone.now()
-			post.save()
-			return show_person(request, person_name_slug)
-	else:
-		form = PageForm(instance=post)
-    
-	
-	context_dict={'form':form, 'person':person}
-	return render(request, 'directory/page.html', context_dict)
-
+class UpdateView(UpdateView):
+	slug='page_title_slug'
+	model=Page
+	template_name='edit_page.html'
+	form_class=PageForm
+	success_url = '/'
 
 	#contents=Page.objects.all()
 

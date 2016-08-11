@@ -2,8 +2,8 @@ from django import forms
 from directory.models import Page, Person
 from datetime import datetime
 from django.db.models import Q
-
-
+import itertools
+from django.utils.text import slugify
 class PersonForm(forms.ModelForm):
 	name = forms.CharField(max_length=128, help_text="please enter a person name.")
 	#HiddenInput with an intial equal to 0 is essentially a way to set the default to 0
@@ -34,3 +34,8 @@ class PageForm(forms.ModelForm):
 		exclude =('person','page_slug', 'created_at')
 		abstract=True
 
+		unique_together = (("page_slug", "title"),)
+
+	
+        
+        

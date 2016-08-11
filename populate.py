@@ -7,20 +7,19 @@ from directory.models import Page, Person
 from datetime import datetime
 import csv 
 
-with open('friendlist.csv', 'rb') as csvfile:
+with open('friendlist.csv', 'r') as csvfile:
 	friendreader=csv.reader(csvfile, delimiter=',', quotechar='|')
 	for row in friendreader:
-		row[0].decode('utf-8')
-		row[1].decode('utf-8')
+		
 		print (row[0])
 
 		def populate():
 
-			person1 = add_person(name=row[0], description=row[1])
+			person1 = add_person(name=row[0], rank=row[1])
 			
 
-		def add_person(name, description):
-			c=Person.objects.get_or_create(name=name, description=description)[0]
+		def add_person(name, rank):
+			c=Person.objects.get_or_create(name=name, rank=rank)[0]
 			return c
 
 		def add_page(person, title):
