@@ -37,9 +37,12 @@
 					<strong> There are no friends in my list. </strong>
 				{% endif %}
 				<div class="addbutton">	
+				
 					<br>
 					<a href="/directory/add_person" class="btn btn-info" role="button">Add Person</a>
 					</br>
+
+					
 					</div>
 				</div>
 			</div>
@@ -57,7 +60,9 @@ $(function() {
  window.location.href = "/directory/person/"+ (encodeURIComponent(JSON.stringify($('#select-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
    
   });
-});</script>
+});
+
+</script>
 	</body>
 </html>
 

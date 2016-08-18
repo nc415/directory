@@ -10,13 +10,16 @@
 	</head>
 <body>
 <div class="indexcontainer">
-	<h1>Page {{p1.title}}</h1>
-	Description
+	<h1>{{p1.title}}</h1>
+	Description:
+	<p>{{p1.description}}
+	
+	<br>
 	<br>
 	</br>
-	{{p1.description}}
-	
+	<a href="{{p1.id}}/delete" class="btn btn-info" role="button">Delete</a>
+	<a href="/directory/" class="btn btn-default" role="button">Index</a>
 </div>
-	
+
 </body>
 </html>

@@ -120,14 +120,7 @@ class UpdateView(UpdateView,):
 	success_url = '/'
 
 
-def delete(request, person_name_slug):
-
-	u = Person.objects.get(pk=id)
-	print(u)
-	return HttpResponse("complete")
-	#contents=Page.objects.all()
-
-	#context_dict = {'birthday': contents}
-	#return render(request, 'directory/page.html', context_dict)
-
-
+def delete(request, person_name_slug, pageid):
+    query = Page.objects.get(pk=pageid)
+    query.delete()
+    return render(request, 'directory/deleted.html', {'query':query})

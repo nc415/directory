@@ -12,9 +12,6 @@ urlpatterns =[
 #(-) denoted by \-, and we can match as many of these as we like denoted by the [ ]+ expression.
 	url(r'^person/"(?P<person_name_slug>[\w\-]+)"/$', views.show_person, name='show_person'),
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)$', views.show_page, name='show_page'),
-	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<page_title_slug>[\w\-]+/update)$', UpdateView.as_view(), name='update'),
-	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<page_title_slug>[\w\-]+/edit)$', views.update_page, name='update'),
-	url(r'^person/"(?P<person_name_slug>[\w\-]+)"/delete/$', views.delete),
-
+	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/delete$', views.delete, name='delete-person'),
 	
 ]
