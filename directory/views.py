@@ -19,7 +19,7 @@ def edit_page(request):
 	fields=['title']
 
 def index(request):
-	friend_list=Person.objects.order_by('rank')[:25]
+	friend_list=Person.objects.order_by('rank')
 	context_dict = {'Friends': friend_list}
 
 	return render(request, 'directory/index.html', context=context_dict)
@@ -109,7 +109,7 @@ def update_page(request, person_name_slug, page_title_slug, pk=None):
            return redirect('/')
     return render(request, 'directory/edit_page.html', {'form': form})
 
-class UpdateView(UpdateView):
+class UpdateView(UpdateView,):
 	slug='page_title_slug'
 	model=Page
 	template_name='edit_page.html'
