@@ -46,11 +46,12 @@ def show_person(request, person_name_slug):
 
 
 
-def show_page(request, person_name_slug, page_title_slug):
+def show_page(request, person_name_slug, pageid):
 	context_dict = {}
 
 	try: 
-		p1 = Page.objects.get(page_slug=page_title_slug)
+		p1 = Page.objects.get(id=pageid)
+
 	
 		context_dict['p1']=p1
 
