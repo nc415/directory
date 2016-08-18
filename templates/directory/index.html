@@ -17,34 +17,34 @@
 		<link rel="stylesheet" type="text/css" media="all" href="{%static 'css/selectize.css'%}">
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="{% static 'css/directory.css'%}"/>
 	</head>
 
 	<body>
-		<div class="indexcontainer">
-			<h1> Friend Directory </h1>
-			<hr>
-			
-
-
-			<h4> My Friends</h4>
-			{% if Friends %}
-			<ul><select id="select-name" placeholder="Select a person..." >
-				{% for person in Friends %}
-				<option value="{{person.slug}}">{{person.name}}
-				{% endfor %}</select>
-				<form role="form" id="contacts">
-                <input type="submit" value="Submit" class="btn btn-info btn-block"></form>
-			</ul>
-			{% else%}
-				<strong> There are no friends in my list. </strong>
-			{% endif %}
-			<div class="addbutton">	
-				<br>
-				<a href="/directory/add_person" class="btn btn-info" role="button">Add Person</a>
-				</br>
+	<div class="row">
+  		<div class="col-sm-6 col-md-5 col-md-offset-2 col-lg-8 col-lg-offset-2">
+			<div class="indexcontainer">
+				<h1 align="center"> Friend Directory </h1>
+				{% if Friends %}
+				<ul><select id="select-name" placeholder="Select a person..." >
+					{% for person in Friends %}
+					<option value="{{person.slug}}">{{person.name}}
+					{% endfor %}</select>
+					<form role="form" id="contacts">
+	                <input type="submit" value="Submit" class="btn btn-info btn-block"></form>
+				</ul>
+				{% else%}
+					<strong> There are no friends in my list. </strong>
+				{% endif %}
+				<div class="addbutton">	
+					<br>
+					<a href="/directory/add_person" class="btn btn-info" role="button">Add Person</a>
+					</br>
+					</div>
+				</div>
 			</div>
 		</div>
-		<hr>
+		
 <script>
 
 $(function() {

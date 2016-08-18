@@ -44,6 +44,8 @@ def show_person(request, person_name_slug):
 	return render(request, 'directory/person.html', context_dict)
 
 
+
+
 def show_page(request, person_name_slug, page_title_slug):
 	context_dict = {}
 
@@ -116,6 +118,12 @@ class UpdateView(UpdateView,):
 	form_class=PageForm
 	success_url = '/'
 
+
+def delete(request, person_name_slug):
+
+	u = Person.objects.get(pk=id)
+	print(u)
+	return HttpResponse("complete")
 	#contents=Page.objects.all()
 
 	#context_dict = {'birthday': contents}
