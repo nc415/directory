@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,3 +126,11 @@ STATICFILES_DIRS =[STATIC_DIR,]
 STATIC_URL = '/static/'
 
 DATE_FORMAT = '%b %d %Y'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'njcollins5@gmail.com'
+EMAIL_HOST_PASSWORD = '01cheesebase'
+DEFAULT_FROM_EMAIL = 'Nicky Collins'
+DEFAULT_TO_EMAIL = 'njcollins5@gmail.com'

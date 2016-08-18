@@ -13,6 +13,7 @@ import re
 from django.views.generic.edit import UpdateView
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.mail import send_mail
 
 def edit_page(request):
 	model=PageForm
@@ -42,6 +43,7 @@ def show_person(request, person_name_slug):
 		context_dict['pages']=None
 
 	return render(request, 'directory/person.html', context_dict)
+
 
 
 
@@ -124,3 +126,23 @@ def delete(request, person_name_slug, pageid):
     query = Page.objects.get(pk=pageid)
     query.delete()
     return render(request, 'directory/deleted.html', {'query':query})
+
+
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.template import context
+from django.template.loader import render_to_string, get_template
+from django.core.mail import EmailMessage
+
+def email(request, pageid, person_name_slug):
+
+	identity=Page.objects.get(pk=pageid)
+	subject = "Page update"
+	to = ['njcollins5@gmail.com']
+	from_email = 'njcollins@live.co.uk'
+	message = get_template('directory/email.html')
+	msg=EmailMessage(subject, message, to=to, from_email=from_email)
+	msg.content_subtype ='html'
+	msg.send()
+
+	return HttpResponse('email_two')
