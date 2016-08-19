@@ -19,8 +19,8 @@ class PersonForm(forms.ModelForm):
 		fields =('name',)
 
 class PageForm(forms.ModelForm):
-	title=forms.CharField(max_length=128, help_text="Please enter title of the page.")
-	description = forms.CharField(max_length=2000, help_text="Please enter the Description")
+	title=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Page Title'}), max_length=128)
+	description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Description'}), max_length=2000)
 	# we have to include this next line because in our model, views doesnt have a default value
 	
 	created_at=forms.DateTimeField(widget=forms.HiddenInput(), initial=datetime.now)

@@ -17,14 +17,15 @@
 <body>
 	<div class="indexcontainer">
 		<table class="table table-striped" style='margin-left: 0px; '>
-    		<thead>
-    			<th>Description</th>
-    			<th>Date</th>
-    		</thead>
+    		
 			{% if person %}
 				<h1>{{person.name}}</h1>
 			{%if pages%}
 				<ul>
+				<thead>
+    			<th>Description</th>
+    			<th>Date</th>
+    			</thead>
 				{% for page in pages %}
 					<div class="updatecontainer">
 			  			<div class="row">

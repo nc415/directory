@@ -12,18 +12,34 @@
 <div class="indexcontainer">	
 	<h1> Add a new Page</h1>
 	<div>
-	<form id="page_form", method="POST", action="/directory/person/{{person.slug}}/add_page/">
+	<form class="form-horizontal", id="page_form", method="POST", action="/directory/person/{{person.slug}}/add_page/">
+	<div class="form-group">
+	<div class="addpageform">
+	<div class="row">
+	<div class="col-sm-12 col-md-6  col-lg-6 ">
 	{%csrf_token%}
 	{%for hidden in form.hidden_fields%}
 		{{hidden}}
 	{% endfor %}
 	{% for field in form.visible_fields %}
+	
 		{{field.errors}}
 		{{field.help_text}}
-		{{field}}<br></br>
+		{{field}}
+		</input>
 	{% endfor %}
+	<div class="addpagebutton">
 	<input type="submit" class="btn btn-info" name="submit" value="Create Page"/>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	</div>
 	</form>
+
 </div>
+
 </body>
 </html>
+

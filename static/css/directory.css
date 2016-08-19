@@ -27,6 +27,20 @@ body {
 	font-size: 14px;
 }
 
+ /*Add Page Stlying */
+#id_title.form-control{
+	margin-bottom: 20px;
+}
+.addpageform{
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right:10px;
+}
+
+.addpagebutton{
+	margin-top: 20px;
+}
+
 @media only screen and (max-device-width: 480px) {
 
 
