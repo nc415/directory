@@ -15,4 +15,9 @@ urlpatterns =[
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/delete$', views.delete, name='delete-person'),
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/email', views.email , name = 'sendSimpleEmail'),
 	
+
 ]
+
+'''	url(r'^register/', views.register , name = 'register'),
+	url(r'^login/', views.user_login , name = 'login'),
+	url(r'^logout/$', views.user_logout, name='logout'),'''

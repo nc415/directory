@@ -2,11 +2,22 @@ from django.db import models
 from django.conf.urls import patterns, include, url
 from django.template.defaultfilters import slugify
 from datetime import datetime
+from django.contrib.auth.models import User
 # Create your models here.
+
+class UserProfile(models.Model):
+	user=models.OneToOneField(User)
+	website=models.URLField(blank=True)
+	picture=models.ImageField(upload_to='profile_images', blank=True)
+
+	def __unicode__(self):
+		return self.user.username
+
 class Person(models.Model):
+	
 	name=models.CharField(max_length=128, unique=True)
 	rank=models.IntegerField(null=True, unique=False)
-	date = models.DateTimeField(default=datetime.now, blank=True, null=True)
+	date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 # Define as slug to use as the URL
 	slug = models.SlugField(blank=True, unique=True)
 
@@ -26,7 +37,7 @@ class Page(models.Model):
 	title = models.CharField(max_length=128, null=False)
 	description=models.CharField(null=True, blank=True, max_length=2000)
 	page_slug = models.SlugField(blank=True, unique=True)
-	created_at = models.DateTimeField(default=datetime.now, blank=True, null=True)
+	created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	
 	class Meta:
 		unique_together = (("person", "title"),)

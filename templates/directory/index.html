@@ -1,5 +1,7 @@
 {% extends 'directory/base.html' %}
 {% block content %}
+{%if user.is_authenticated%}            	
+	             
 <div class="row">
 	<div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 		<div class="indexcontainer">
@@ -37,6 +39,7 @@ $(function() {
 });
 
 </script>
-
+  {%else%}
+	             {%endif%}
 {% endblock %}
 

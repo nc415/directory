@@ -1,9 +1,10 @@
 from django import forms
-from directory.models import Page, Person
+from directory.models import Page, Person, UserProfile
 from datetime import datetime
 from django.db.models import Q
 import itertools
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 class PersonForm(forms.ModelForm):
 	name = forms.CharField(max_length=128, help_text="please enter a person name.")
 	#HiddenInput with an intial equal to 0 is essentially a way to set the default to 0
@@ -37,5 +38,15 @@ class PageForm(forms.ModelForm):
 		unique_together = (("page_slug", "title"),)
 
 	
-        
+class UserForm(forms.ModelForm):
+	password=forms.CharField(widget=forms.PasswordInput())
+
+	class Meta:
+		model = User
+		fields = ('username', 'email', 'password')
+
+class UserProfileForm(forms.ModelForm):
+	class Meta:
+		model = UserProfile
+		fields = ('website', 'picture')
         

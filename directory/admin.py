@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
-from directory.models import Person, Page
+from directory.models import Person, Page, UserProfile
+
+
 # Register your models here.
 # Register your models here.
 
@@ -15,3 +17,4 @@ class PersonAdmin(admin.ModelAdmin):
 	
 admin.site.register(Page, PageAdmin)
 admin.site.register(Person, PersonAdmin)
+admin.site.register(UserProfile)

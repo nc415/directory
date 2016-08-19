@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
     url(r'^directory/', include('directory.urls')),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
 ]

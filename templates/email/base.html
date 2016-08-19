@@ -1,0 +1,12 @@
+{% extends "mail_templated/base.tpl" %}
+
+{% block subject %}
+{{ COMPANY_NAME }} {% block subject_content %}{% endblock %}
+{% endblock %}
+
+{% block html %}
+  <img src="{{ COMPANY_LOGO_URL }}" />
+  {% block body_content %}
+    {% include 'templates/email/parts/standard_greetings.html' %}
+  {% endblock %}
+{% endblock %}
