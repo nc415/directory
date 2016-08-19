@@ -1,60 +1,41 @@
-<!DOCTYPE html>
-{% load staticfiles%}
-<html>
-	<head>
-		<title>Directory | {{person.slug}}</title>
-		<!-- CSSs -->
-		<link rel="shortcut icon" href="http://designm.ag/favicon.ico">
- 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
- 		<script type="text/javascript" src="{% static 'js/selectize.min.js'%}"></script>
- 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.js"></script>
-		<link rel="stylesheet" href="{% static 'css/selectize.css'%}">
-		<link rel="stylesheet" href="{% static 'css/directory.css'%}"/>
-		<link rel="stylesheet" type="text/css" media="all" href="{%static 'css/selectize.css'%}">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link rel="stylesheet" href="{% static 'css/directory.css'%}"/>
-	</head>
-<body>
-	<div class="indexcontainer">
-		<table class="table table-striped" style='margin-left: 0px; '>
-    		
-			{% if person %}
-				<h1>{{person.name}}</h1>
-			{%if pages%}
-				<ul>
-				<thead>
-    			<th>Description</th>
-    			<th>Date</th>
-    			</thead>
-				{% for page in pages %}
-					<div class="updatecontainer">
-			  			<div class="row">
-	    					<div class="col-sm-12">
-	    					    <tr>
-	           						<td width=400px, style='padding-right:20px;'>
-	             						<a href="/directory/person/{{ person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
-	          						</td>
-	           						<td>
-	             						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
-	           						</td>
-	       						</tr>
-	       					</div>
-	       				</div>
-	       			</div>
-	 			{%endfor%}
-			</table>
-			</ul>
-			{%else%}
+{% extends 'directory/base.html' %}
+{% block content %}
+<div class="indexcontainer">
+	<table class="table table-striped" style='margin-left: 0px; '>
+		{% if person %}
+			<h1>{{person.name}}</h1>
+		{%if pages%}
+		<thead>
+			<th>Description</th>
+			<th>Date</th>
+		</thead>
+		{% for page in pages %}
+			<div class="updatecontainer">
+	  			<div class="row">
+					<div class="col-sm-12">
+					    <tr>
+       						<td width=400px, style='padding-right:20px;'>
+         						<a href="/directory/person/{{ person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
+      						</td>
+       						<td>
+         						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
+       						</td>
+   						</tr>
+   					</div>
+   				</div>
+   			</div>
+			{%endfor%}
+	</table>
+		{%else%}
 			<strong>No updates about this person. </strong>
 		{% endif %}
-	
-		{% else %}
-			This person does not exist!
-		{% endif %}
-		<div class="buttons">
-		<a href="/directory/" class="btn btn-default" role="button">Index</a>
-		<a href="/directory/person/{{person.slug}}/add_page/" class="btn btn-primary" role="button">Add Page</a>
-		</div>
+	{% else %}
+		This person does not exist!
+	{% endif %}
+	<div class="buttons">
+	<a href="/directory/" class="btn btn-default" role="button">Index</a>
+	<a href="/directory/person/{{person.slug}}/add_page/" class="btn btn-primary" role="button">Add Page</a>
+	</div>
 	</div>
 </body>
-</html>
+{% endblock %}
