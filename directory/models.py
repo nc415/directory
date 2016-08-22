@@ -16,7 +16,7 @@ class UserProfile(models.Model):
 class Person(models.Model):
 	
 	name=models.CharField(max_length=128, unique=True)
-	rank=models.IntegerField(null=True, unique=False)
+	rank=models.IntegerField(null=False, unique=False)
 	date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 # Define as slug to use as the URL
 	slug = models.SlugField(blank=True, unique=True)

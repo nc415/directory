@@ -37,7 +37,9 @@ class PageForm(forms.ModelForm):
 
 		unique_together = (("page_slug", "title"),)
 
-	
+class EmailForm(forms.ModelForm):
+	name=forms.CharField(max_length=128)
+
 class UserForm(forms.ModelForm):
 	password=forms.CharField(widget=forms.PasswordInput())
 

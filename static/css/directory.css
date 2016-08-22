@@ -95,3 +95,7 @@ li a {
 li a:hover {
     background-color: #111;
 }
+
+.navbar-default  {
+    border-radius: 0px;
+}
