@@ -96,6 +96,7 @@ li a:hover {
     background-color: #111;
 }
 
+<<<<<<< HEAD
 #id_username.input{
 	font-size: 100px;
 }
@@ -103,3 +104,8 @@ li a:hover {
 i.fa.fa-pencil {
 	margin-left: 10px;
 }
+=======
+.navbar-default  {
+    border-radius: 0px;
+}
+>>>>>>> fefc20a7dccd77a788b7b136da12969e4320a62f

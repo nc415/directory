@@ -11,16 +11,9 @@ urlpatterns =[
 #for any sequence of alphanumeric characters e.g. a-z, A-Z, or 0-9 denoted by \w and any hyphens
 #(-) denoted by \-, and we can match as many of these as we like denoted by the [ ]+ expression.
 	url(r'^person/"(?P<person_name_slug>[\w\-]+)"/$', views.show_person, name='show_person'),
-	url(r'^person/(?P<person_name_slug>[\w\-]+)/$', views.show_person, name='show_person'),
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)$', views.show_page, name='show_page'),
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/delete$', views.delete, name='delete-person'),
-<<<<<<< HEAD
-	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/edit$', views.edit_page, name='delete-person'),
-	url(r'^person/(?P<person_name_slug>[\w\-]+)/email', views.email , name = 'sendSimpleEmail'),
-	
-=======
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/send_email$', views.email, name='send_email'),
->>>>>>> fefc20a7dccd77a788b7b136da12969e4320a62f
 
 ]
 

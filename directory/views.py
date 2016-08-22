@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from directory.models import Person, Page, User
 from directory.forms import PersonForm,PageForm, UserProfileForm, UserForm, EditPageForm
 from django.db.models import manager
-
 from django.conf.urls import patterns, include, url
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -15,10 +14,21 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
+<<<<<<< HEAD
 from django.template.loader import render_to_string, get_template
 from django.template import Context
 from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned
+=======
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
+
+def edit_page(request):
+	model=PageForm
+	fields=['title']
+
+>>>>>>> fefc20a7dccd77a788b7b136da12969e4320a62f
 def index(request):
 	friend_list=Person.objects.order_by('rank')
 	context_dict = {'Friends': friend_list}
@@ -97,18 +107,46 @@ def add_page(request, person_name_slug):
 				page.person=person
 				page.views=0
 				page.save()
+				send_mail('Subject here', 'Here is the message.', 'test@test.com', ['njcollins@live.co.uk'], fail_silently=False)
 				return show_person(request, person_name_slug)
 		else:
 			print (form.errors)
 	context_dict ={'form':form, 'person':person}
 	return render(request, 'directory/add_page.html', context_dict)
 
+<<<<<<< HEAD
+=======
+
+
+def email(request,person_name_slug):
+	try:
+		person=Person.objects.get(slug=person_name_slug)
+	except Person.DoesNotExist:
+		person=None
+	form=EmaiLForm()
+
+	if request.method =='POST':
+		form=EmailForm(request.POST)
+		if form.is_valid():
+			if person:
+				page=form.save()
+				send_mail('PAGE INFO', 'MESSAGE', 'njcollins@live.co.uk', ['njcollins@live.co.uk'], fail_silently=False)
+				return show_person(request,person_name_slug)
+		else:
+			print (form.errors)
+	context_dict={'form':form, 'person':person}
+	return render(request, 'directory/send_email.html', context_dict)
+
+
+
+>>>>>>> fefc20a7dccd77a788b7b136da12969e4320a62f
 
 def delete(request, person_name_slug, pageid):
     query = Page.objects.get(pk=pageid)
     query.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'), {'query':query})
 
+<<<<<<< HEAD
 
 def edit_page(request, person_name_slug, pageid):
     
@@ -170,3 +208,8 @@ def email(request, person_name_slug):
 	'''email = EmailMessage('Subject', 'Body', to=['njcollins@live.co.uk'])
 	email.send()
 	return render(request, 'directory/page.html')'''
+=======
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
+>>>>>>> fefc20a7dccd77a788b7b136da12969e4320a62f
