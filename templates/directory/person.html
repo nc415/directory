@@ -20,6 +20,9 @@
        						<td>
          						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
        						</td>
+       						<td width=200px>
+       						<a href="/directory/person/{{ person.slug }}/{{page.id}}/delete"><span class="fa fa-trash-o fa-2x" aria-hidden="true" style="margin-right:20px;"></span><a href="/directory/person/{{ person.slug }}/{{page.id}}/edit"><span class="fa fa-pencil fa-2x" aria-hidden="true"></span>
+       						</td>
    						</tr>
    					</div>
    				</div>
@@ -37,6 +40,7 @@
 	<div class="buttons">
 	<a href="/directory/" class="btn btn-default" role="button">Index</a>
 	<a href="/directory/person/{{person.slug}}/add_page/" class="btn btn-primary" role="button">Add Page</a>
+	<a href="/directory/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
 	</div>
 	</div>
 </body>

@@ -95,3 +95,11 @@ li a {
 li a:hover {
     background-color: #111;
 }
+
+#id_username.input{
+	font-size: 100px;
+}
+
+i.fa.fa-pencil {
+	margin-left: 10px;
+}

@@ -26,16 +26,31 @@ class PageForm(forms.ModelForm):
 	
 	created_at=forms.DateTimeField(widget=forms.HiddenInput(), initial=datetime.now)
 	#in case the user failed to enter a URL in the correct format, i.e. with http://
-	page_slug=forms.CharField(widget=forms.HiddenInput(), initial=0, required=False)
+	pageid=forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
 
 	class Meta:
 		model = Page
 		#what fields to include in the form? In our model we have "category"
 		#as a field, but we dont want to include this, so specify what to include
-		exclude =('person','page_slug', 'created_at')
+		exclude =('person','pageid','created_at' )
 		abstract=True
 
-		unique_together = (("page_slug", "title"),)
+
+class EditPageForm(forms.ModelForm):
+	title=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Page Title'}), max_length=128)
+	description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Description'}), max_length=2000)
+	# we have to include this next line because in our model, views doesnt have a default value
+	
+	created_at=forms.DateTimeField(widget=forms.HiddenInput(), initial=datetime.now)
+	#in case the user failed to enter a URL in the correct format, i.e. with http://
+	pageid=forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
+
+	class Meta:
+		model = Page
+		#what fields to include in the form? In our model we have "category"
+		#as a field, but we dont want to include this, so specify what to include
+		exclude =('person','pageid','created_at' )
+		abstract=True
 
 	
 class UserForm(forms.ModelForm):

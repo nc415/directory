@@ -1,0 +1,21 @@
+
+{% if person %}
+
+			<h1>Updates for {{person.name}}</h1>
+		{%if pages%}
+		
+		{% for page in pages %}
+			
+         					{{page.title}}  |  
+      						{{page.created_at|date:"jS \o\f F"}}<br><p>
+       						
+			{%endfor%}
+
+		{%else%}
+			<strong>No updates about this person. </strong>
+			<br></br>
+		{% endif %}
+	{% else %}
+		This person does not exist!
+		<br>
+	{% endif %}

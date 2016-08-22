@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.template.defaultfilters import slugify
 from datetime import datetime
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 class UserProfile(models.Model):
@@ -33,14 +34,15 @@ class Person(models.Model):
 			return self.name
 
 class Page(models.Model):
+	
 	person = models.ForeignKey(Person)
 	title = models.CharField(max_length=128, null=False)
 	description=models.CharField(null=True, blank=True, max_length=2000)
-	page_slug = models.SlugField(blank=True, unique=True)
+	pageid = models.SlugField(blank=True, unique=False)
 	created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 	
-	class Meta:
-		unique_together = (("person", "title"),)
+
+		
 
 	def get_absolute_url(self):
 		return reverse('page-title', kwargs={'pk': self.pk})

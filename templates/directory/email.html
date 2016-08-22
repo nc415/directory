@@ -1,1 +1,31 @@
-Hello {{ page.title}}
+{% extends 'directory/base.html' %}
+{% block content %}
+
+{% if person %}
+
+			<h1 align="center">Email sent to {{address}}</h1>
+		<div class="indexcontainer">
+		<h2>{{person.name}}</h2>
+		{%if pages%}
+	
+		{% for page in pages %}
+			
+         					{{page.title}}  |  
+      						{{page.created_at|date:"jS \o\f F"}}<br>
+       						
+			{%endfor%}
+
+		{%else%}
+			<strong>No updates about this person. </strong>
+			<br></br>
+		{% endif %}
+	{% else %}
+		This person does not exist!
+		<br>
+	{% endif %}
+	<div class="buttons">
+	<a href="/directory/" class="btn btn-default" role="button">Index</a>
+	</div>
+
+
+{% endblock %}

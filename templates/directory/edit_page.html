@@ -1,21 +1,34 @@
 {% extends 'directory/base.html' %}
 {% block content %}
 
-{{form}}
 <div class="indexcontainer">	
-	<h1> Add a new Page</h1>
-	<div>
-	<form id="page_form", method="POST", action="/directory/person/{{person.slug}}/add_page/">
-	{%csrf_token%}
-	{%for hidden in form.hidden_fields%}
-		{{hidden}}
-	{% endfor %}
-	{% for field in form.visible_fields %}
-		{{field.errors}}
-		{{field.help_text}}
-		{{field}}<br></br>
-	{% endfor %}
-	<input type="submit" class="btn btn-info" name="submit" value="Create Page"/>
-	</form>
+	<h1> Edit Page</h1>
+	<form class="form-horizontal", id="page_form", method="POST", action="/directory/person/{{person.slug}}/add_page/">
+		<div class="form-group">
+			<div class="addpageform">
+				<div class="row">
+					<div class="col-sm-12 col-md-6  col-lg-6 ">
+							{{query}}
+						{%csrf_token%}
+						{%for hidden in form.hidden_fields%}
+							{{hidden}}
+						{% endfor %}
+						{% for field in form.visible_fields %}
+						
+							{{field.errors}}
+							{{field.help_text}}
+							{{field}}
+						{% endfor %}
+							<div class="addpagebutton">
+								<input type="submit" class="btn btn-info" name="submit" value="Edit Page"/>
+								<a href="/directory/" class="btn btn-default" role="button">Index</a>
+								<input type="submit" class="btn btn-success" name="submit" value="Return"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 {% endblock %}

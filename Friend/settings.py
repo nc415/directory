@@ -134,7 +134,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'njcollins5@gmail.com'
 EMAIL_HOST_PASSWORD = '01cheesebase'
-DEFAULT_FROM_EMAIL = 'Nicky Collins'
+DEFAULT_FROM_EMAIL = 'njcollins5@gmail.com'
 DEFAULT_TO_EMAIL = 'njcollins5@gmail.com'
 
 MEDIA_URL = '/media/'

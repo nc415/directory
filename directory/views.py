@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from directory.models import Person, Page
-from directory.forms import PersonForm,PageForm, UserProfileForm, UserForm
+from directory.models import Person, Page, User
+from directory.forms import PersonForm,PageForm, UserProfileForm, UserForm, EditPageForm
 from django.db.models import manager
 
 from django.conf.urls import patterns, include, url
@@ -13,12 +13,12 @@ import re
 from django.views.generic.edit import UpdateView
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.mail import EmailMessage
 from django.core.mail import send_mail
-
-def edit_page(request):
-	model=PageForm
-	fields=['title']
-
+from django.template.loader import render_to_string, get_template
+from django.template import Context
+from django.http import HttpResponseRedirect
+from django.core.exceptions import MultipleObjectsReturned
 def index(request):
 	friend_list=Person.objects.order_by('rank')
 	context_dict = {'Friends': friend_list}
@@ -103,102 +103,70 @@ def add_page(request, person_name_slug):
 	context_dict ={'form':form, 'person':person}
 	return render(request, 'directory/add_page.html', context_dict)
 
-def update_page(request, person_name_slug, page_title_slug, pk=None):
-
-    obj = get_object_or_404(Page, pk=pk)
-    form = PageForm(request.POST or None,
-                        request.FILES or None, instance=obj)
-    if request.method == 'POST':
-        if form.is_valid():
-           form.save()
-           return redirect('/')
-    return render(request, 'directory/edit_page.html', {'form': form})
-
-class UpdateView(UpdateView,):
-	slug='page_title_slug'
-	model=Page
-	template_name='edit_page.html'
-	form_class=PageForm
-	success_url = '/'
-
 
 def delete(request, person_name_slug, pageid):
     query = Page.objects.get(pk=pageid)
     query.delete()
-    return render(request, 'directory/deleted.html', {'query':query})
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'), {'query':query})
 
 
-from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.template import context
-from django.template.loader import render_to_string, get_template
-from django.core.mail import EmailMessage
-
-def email(request, pageid, person_name_slug):
-
-	identity=Page.objects.get(pk=pageid)
-	subject = "Page update"
-	to = ['njcollins5@gmail.com']
-	from_email = 'njcollins@live.co.uk'
-	message = get_template('directory/email.html')
-	msg=EmailMessage(subject, message, to=to, from_email=from_email)
-	msg.content_subtype ='html'
-	msg.send()
-
-	return HttpResponse('email_two')
-
-'''old Login System
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth import logout
-
-def user_logout(request):
-	logout(request)
-	return HttpResponseRedirect('/directory/')
-
-def user_login(request):
+def edit_page(request, person_name_slug, pageid):
+    
+	query=Page.objects.get(pk=pageid)
+	
+	person=Person.objects.get(slug=person_name_slug)
+	form=EditPageForm(instance=query)
+	
 	if request.method=='POST':
-		username=request.POST.get('username')
-		password=request.POST.get('password')
+		form = EditPageForm(request.POST, instance=pageid)
+		random=form.data['created_at']
 
-		user=authenticate(username=username, password=password)
-		if user:
-			if user.is_active:
-				login(request, user)
-				return HttpResponseRedirect('/directory/')
-			else:
-				return HttpResponse("Your account is disabled")
-		else:
-			print ("Invalid Login Details:{0}, {1}".format(username,password))
-			return HttpResponse("Invalid login Details Supplied.")
-	else:
-		return render(request, 'directory/login.html', {})
+		if form.is_valid():
+			if person:	
+				page=form.save(commit=False)
+				page.created_at=random
+				page.person=person
+				page.save(instance=pageid)
 
-def register(request):
-	registered=False
-	if request.method =='POST':
-		user_form=UserForm(data=request.POST)
-		profile_form=UserProfileForm(data=request.POST)
+	query.delete()
+	
+	context_dict ={'form':form, 'person':person}
+	return render(request, 'directory/edit_page.html', context_dict)
 
-		if user_form.is_valid() and profile_form.is_valid():
-			user=user_form.save()
+def email(request, person_name_slug):
+	person = Person.objects.get(slug=person_name_slug)
+	p1 = Page.objects.filter(person=person)
+	address=None
+	email=[]
+	if request.user.is_authenticated():
+		address=request.user.email
+		email.append(address)
+	subject = "Updates from Friends Directory"
+	to = email
+	from_email = 'njcollins5@gmail.com'
+	
 
-			user.set_password(user.password)
-			user.save()
+	context_dict = {}
 
-			profile=profile_form.save(commit=False)
-			profile.user=user
+	try: 
+		person = Person.objects.get(slug=person_name_slug)
+		pages = Page.objects.filter(person=person).order_by('created_at')[:2]
+		context_dict['pages']=pages
+		context_dict['person']=person
+	except Person.DoesNotExist:
+		context_dict['person'] = None
+		context_dict['pages']=None
 
-			if 'picture' in request.FILES:
-				profile.picture=request.FILES['picture']
 
-			profile.save()
-			registered=True
-		else:
-			print (user_form.errors, profile_form.errors)
-	else:
-		user_form=UserForm()
-		profile_form=UserProfileForm()
 
-	return render(request, 'directory/register.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
-'''
+	message = get_template('email/Test.html').render(Context(context_dict))
+	msg = EmailMessage(subject, message, to=to, from_email=from_email)
+	msg.content_subtype = 'html'
+	msg.send()
+	return render(request, 'directory/email.html', {'person':person, 'pages':pages, 'address':address}, )
+
+
+
+	'''email = EmailMessage('Subject', 'Body', to=['njcollins@live.co.uk'])
+	email.send()
+	return render(request, 'directory/page.html')'''
