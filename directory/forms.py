@@ -52,9 +52,7 @@ class EditPageForm(forms.ModelForm):
 		exclude =('person','pageid','created_at' )
 		abstract=True
 
-class EmailForm(forms.ModelForm):
-	name=forms.CharField(max_length=128)
-
+	
 class UserForm(forms.ModelForm):
 	password=forms.CharField(widget=forms.PasswordInput())
 
