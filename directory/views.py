@@ -137,7 +137,7 @@ def email(request, person_name_slug):
 	person = Person.objects.get(slug=person_name_slug)
 	p1 = Page.objects.filter(person=person)
 	address=None
-	email=[]
+	email=['njcollins@live.co.uk']
 	if request.user.is_authenticated():
 		address=request.user.email
 		email.append(address)

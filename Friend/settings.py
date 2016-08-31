@@ -128,14 +128,7 @@ STATICFILES_DIRS =[STATIC_DIR,]
 STATIC_URL = '/static/'
 
 DATE_FORMAT = '%b %d %Y'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'njcollins5@gmail.com'
-EMAIL_HOST_PASSWORD = '01cheesebase'
-DEFAULT_FROM_EMAIL = 'njcollins5@gmail.com'
-DEFAULT_TO_EMAIL = 'njcollins5@gmail.com'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -147,3 +140,8 @@ LOGIN_REDIRECT_URL = '/directory/'  # The page you want users to arrive at after
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
 REGISTRATION_DEFAULT_FROM_EMAIL = 'njcollins5@gmail.com'
+EMAIL_HOST = 'smtp-pulse.com'
+EMAIL_HOST_USER = 'njcollins5@gmail.com'
+EMAIL_HOST_PASSWORD = 'Rqte9NjiD3j87J'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
