@@ -1,5 +1,7 @@
 body {
 	background-image: url("../images/bg.png");
+	background-height: 100%;
+	background-repeat: no-repeat;
 }
 .update{
 	width: 50px;
@@ -69,15 +71,35 @@ h1 {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
-
-
-
+.a {line-height: 0px;}
+.row{margin-right:0px;}
+.navbar-nav>li>a {line-height: 50px;}
+.navbar-nav {
+    font-size: 50px;
+    margin-top: 10px;
+    line-height: 0px;
+}
+.navbar-brand{
+	margin-top: 20px;
+	font-size: 50px;
+}
+.navbar-default{
+	height: 100px;
+}
+.selectize-input{font-size: 50px;
+    height: 70px;
+    line-height: 50px;}
+.btn-info{
+	height: 100px;
+    font-size: 50px;
+    margin-top: 30px;
+	border-radius: 10px;}
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    
 }
 
 li {

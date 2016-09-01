@@ -4,3 +4,6 @@ Pillow==2.1.0
 django-registration-redux==1.4
 django-registration==2.1.2
 django-mailgun==0.9.1
+schedule==0.3.2
+selenium
+''''''''''''also requires phantomJS'''

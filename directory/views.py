@@ -135,9 +135,9 @@ def edit_page(request, person_name_slug, pageid):
 
 def email(request, person_name_slug):
 	person = Person.objects.get(slug=person_name_slug)
-	p1 = Page.objects.filter(person=person)
+	p1 = Page.objects.filter(person=person).order_by('-created_at')[:2]
 	address=None
-	email=['njcollins@live.co.uk']
+	email=["njcollins5@gmail.com"]
 	if request.user.is_authenticated():
 		address=request.user.email
 		email.append(address)
@@ -150,7 +150,7 @@ def email(request, person_name_slug):
 
 	try: 
 		person = Person.objects.get(slug=person_name_slug)
-		pages = Page.objects.filter(person=person).order_by('created_at')[:2]
+		pages = Page.objects.filter(person=person).order_by('-created_at')[:2]
 		context_dict['pages']=pages
 		context_dict['person']=person
 	except Person.DoesNotExist:

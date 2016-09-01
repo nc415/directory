@@ -1,0 +1,19 @@
+[INFO  - 2016-09-01T18:15:12.070Z] GhostDriver - Main - running on port 57307
+[INFO  - 2016-09-01T18:15:15.592Z] Session [081830f0-7070-11e6-8dbd-e9b34fa266fc] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-09-01T18:15:15.592Z] Session [081830f0-7070-11e6-8dbd-e9b34fa266fc] - page.customHeaders:  - {}
+[INFO  - 2016-09-01T18:15:15.592Z] Session [081830f0-7070-11e6-8dbd-e9b34fa266fc] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2016-09-01T18:15:15.593Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 081830f0-7070-11e6-8dbd-e9b34fa266fc
+[ERROR - 2016-09-01T18:15:16.605Z] Session [081830f0-7070-11e6-8dbd-e9b34fa266fc] - page.onError - msg: TypeError: undefined is not an object (evaluating 'c.mixin')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-09-01T18:15:16.605Z] Session [081830f0-7070-11e6-8dbd-e9b34fa266fc] - page.onError - stack:
+  (anonymous function) (http://127.0.0.1:8000/static/js/selectize.min.js:2)
+  (anonymous function) (http://127.0.0.1:8000/static/js/selectize.min.js:2)
+
+  phantomjs://platform/console++.js:263 in error
+[INFO  - 2016-09-01T18:20:12.349Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-09-01T18:25:12.351Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-09-01T18:30:12.352Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-09-01T18:35:12.352Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-09-01T18:40:12.352Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-09-01T18:45:12.352Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
