@@ -21,7 +21,8 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned
 def index(request):
 	friend_list=Person.objects.order_by('rank')
-	context_dict = {'Friends': friend_list}
+	page_list=Page.objects.order_by('-created_at')
+	context_dict = {'Friends': friend_list, 'Page':page_list}
 
 	return render(request, 'directory/index.html', context=context_dict)
 

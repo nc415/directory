@@ -100,7 +100,7 @@ def main():
     else:
         print("No upcoming events")
 
-schedule.every().day.at("19:15").do(main)
+schedule.every().day.at("23:59").do(main)
 
 while True:
     schedule.run_pending()
