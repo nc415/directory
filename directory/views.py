@@ -19,13 +19,24 @@ from django.template.loader import render_to_string, get_template
 from django.template import Context
 from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned
-def index(request):
-	friend_list=Person.objects.order_by('rank')
-	page_list=Page.objects.order_by('-created_at')
-	context_dict = {'Friends': friend_list, 'Page':page_list}
 
+
+def index(request):
+	if request.user.is_authenticated():
+		friend_list=Person.objects.filter(user=request.user).order_by('rank')
+	else:
+		friend_list=Person.objects.order_by('rank')
+	page_list=Page.objects.order_by('-created_at')
+	context_dict = {'Friends': friend_list, 'Page':page_list, }
+	
 	return render(request, 'directory/index.html', context=context_dict)
 
+def home(request):
+	friend_list=Person.objects.filter(user=request.user).order_by('rank')
+	page_list=Page.objects.order_by('-created_at')
+	context_dict = {'Friends': friend_list, 'Page':page_list, }
+	
+	return render(request, 'directory/home.html', context=context_dict)
 
 def about(request):
 	context_dict ={'yourname': "Nicky Collins"}

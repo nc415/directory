@@ -15,10 +15,9 @@ class UserProfile(models.Model):
 		return self.user.username
 
 class Person(models.Model):
-	
+	user=models.ForeignKey(User, default=20)
 	name=models.CharField(max_length=128, unique=True)
 	rank=models.IntegerField(null=True, unique=False)
-	date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 # Define as slug to use as the URL
 	slug = models.SlugField(blank=True, unique=True)
 
@@ -33,9 +32,14 @@ class Person(models.Model):
 	def __str__(self):
 			return self.name
 
+class Category(models.Model):
+	name=models.CharField(max_length=128, unique=True)
+	def __str__(self):
+		return self.name
 class Page(models.Model):
 	
 	person = models.ForeignKey(Person)
+	category = models.ForeignKey(Category, default=0)
 	title = models.CharField(max_length=128, null=False)
 	description=models.CharField(null=True, blank=True, max_length=2000)
 	pageid = models.SlugField(blank=True, unique=False)

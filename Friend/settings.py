@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'selectize',
     'directory',
+
   
 
 ]
@@ -140,8 +141,8 @@ LOGIN_REDIRECT_URL = '/directory/'  # The page you want users to arrive at after
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
 REGISTRATION_DEFAULT_FROM_EMAIL = 'njcollins5@gmail.com'
-EMAIL_HOST = 'smtp-pulse.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'njcollins5@gmail.com'
-EMAIL_HOST_PASSWORD = 'Rqte9NjiD3j87J'
-EMAIL_PORT = 2525
+EMAIL_HOST_PASSWORD = '01cheesebase'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True

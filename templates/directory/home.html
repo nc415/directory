@@ -1,0 +1,124 @@
+{% extends 'directory/base.html' %}
+{% block content %}
+{%if user.is_authenticated%}            	
+	             
+<div class="row">
+	<div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+		<div class="indexcontainer">
+			<h1 align="center"> Friend Directory </h1>
+				{% if Friends %}
+					<select id="select-name" placeholder="Select a person..." >
+					{% for person in Friends %}
+						<option value="{{person.slug}}">{{person.name}}
+					{% endfor %}
+					</select>
+				<form role="form" id="contacts">
+                	<input type="submit" value="Submit" class="btn btn-info btn-block"></form>
+					{% else%}
+					<strong> There are no friends in my list. </strong>
+				{% endif %}
+			<div class="addbutton">	
+				<br><a href="/directory/add_person" class="btn btn-info" role="button">Add Person</a></br>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+		<div class="indexcontainer">
+		<h3> Recent Updates </h3>
+			<table id="internalActivities" class="table table-striped" style='margin-left: 0px; '>
+				<thead>
+					<th>Title</th>
+					<th>Person</th>
+					<th>Date</th>
+				</thead>
+				{% for page in Page %}
+					<div class="updatecontainer">
+			  			<div class="row">
+							<div class="col-sm-12">
+							    <tr>
+		       						<td width=400px, style='padding-right:20px;'>
+		         						<a href="/directory/person/{{ page.person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
+		      						</td>
+		       						<td>
+		         						<a href="/directory/person/{{page.person.slug}}">{{page.person}}</a>
+		       						</td>
+		       						<td width=200px>
+		       						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
+		       						</td>
+		   						</tr>
+		   					</div>
+		   				</div>
+		   			</div>
+				{%endfor%}
+				
+			</table>
+			<input type="button" class="btn btn-primary" id="seeMoreRecords" value="More">
+			<input type="button" class="btn btn-primary" id="seeLessRecords" value="Less">
+		</div>
+	</div>
+</div>
+
+<script>
+for (var i=0;i<21;i++) {
+    
+}
+
+var trs = $("#internalActivities tr");
+var btnMore = $("#seeMoreRecords");
+var btnLess = $("#seeLessRecords");
+var trsLength = trs.length;
+var currentIndex = 4;
+
+trs.hide();
+trs.slice(0, 4).show(); 
+checkButton();
+
+btnMore.click(function (e) { 
+    e.preventDefault();
+    $("#internalActivities tr").slice(currentIndex, currentIndex + 4).show();
+    currentIndex += 4;
+    checkButton();
+});
+
+btnLess.click(function (e) { 
+    e.preventDefault();
+    $("#internalActivities tr").slice(currentIndex - 4, currentIndex).hide();          
+    currentIndex -= 4;
+    checkButton();
+});
+
+function checkButton() {
+    var currentLength = $("#internalActivities tr:visible").length;
+
+    if (currentLength >= trsLength) {
+        btnMore.hide();            
+    } else {
+        btnMore.show();   
+    }
+
+    if (trsLength > 4 && currentLength > 4) {
+        btnLess.show();
+    } else {
+        btnLess.hide();
+    }
+
+}
+$(function() {
+    $('#select-name').selectize({    create:true, plugins: ['remove_button']
+});
+
+  $('#contacts').submit(function(e){
+    e.preventDefault();
+
+ window.location.href = "/directory/person/"+ (encodeURIComponent(JSON.stringify($('#select-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+   
+  });
+});
+
+</script>
+  {%else%}
+	             {%endif%}
+{% endblock %}
+

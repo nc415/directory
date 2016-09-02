@@ -15,11 +15,12 @@ with open('friendlist.csv', 'r') as csvfile:
 
 		def populate():
 
-			person1 = add_person(name=row[0], rank=row[1])
+			person1 = add_person(name=row[0], rank=row[1] )
 			
 
 		def add_person(name, rank):
-			c=Person.objects.get_or_create(name=name, rank=rank)[0]
+			
+			c=Person.objects.get_or_create(name=name, rank=rank, user_id=21)[0]
 			return c
 
 		def add_page(person, title):
