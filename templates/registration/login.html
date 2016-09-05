@@ -1,13 +1,14 @@
 {% extends 'directory/base.html' %}
 {% block content %}
 <h1>Login</h1>
-
+{{data}}
 
  <p>
    <ul>
    {% if user and not user.is_anonymous %}
      <li>
        <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+       {{user.emai}}
      </li>
      <li>
        <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>

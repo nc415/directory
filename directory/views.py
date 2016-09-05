@@ -19,10 +19,11 @@ from django.template.loader import render_to_string, get_template
 from django.template import Context
 from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned
-from urllib2 import urlopen, HTTPError
-import urllib2
 import json
-from json import dumps, loads
+from urllib.request import urlopen
+import urllib.request
+import urllib
+
 def index(request):
 	if request.user.is_authenticated():
 		friend_list=Person.objects.filter(user=request.user).order_by('rank')
@@ -181,21 +182,59 @@ def email(request, person_name_slug):
 
 
 
-	'''email = EmailMessage('Subject', 'Body', to=['njcollins@live.co.uk'])
-	email.send()
-	return render(request, 'directory/page.html')'''
-def Facebook(request):
+
+def Facebook(request,):
 	social_user = request.user.social_auth.filter(
-    provider='facebook',
+	    provider='facebook',
 	).first()
 	if social_user:
 	    url = u'https://graph.facebook.com/{0}/' \
-	          u'friends?fields=id,name,location,picture' \
+	          u'friends?fields=email,id,name,location,picture' \
 	          u'&access_token={1}'.format(
 	              social_user.uid,
 	              social_user.extra_data['access_token'],
 	          )
-	    request2 = urllib2.Request(url)
-	    friends = json.loads(urllib2.urlopen(request).read()).get('data')
-	    print(friends)
-	return render(request, 'directory/facebook.html', {'friends':friends})
+	    response = urllib.request.urlopen(url).read().decode('utf8')
+	    data = json.loads(response)
+	    print(data)
+	return render(request, 'directory/facebook.html', {'data':data})
+
+import httplib2
+from apiclient.discovery import build
+from oauth2client.client import AccessTokenCredentials
+
+
+def Google(user):
+    c = user.social_auth.get(provider='google-oauth2')
+    access_token = c.tokens['access_token']
+ 
+    credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
+    http = httplib2.Http()
+    http = credentials.authorize(http)
+    service = build(serviceName='calendar', version='v3', http=http,
+           developerKey='...')
+    
+        
+    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    print('Getting the upcoming 10 events')
+    eventsResult = service.events().list(
+        calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
+        orderBy='startTime').execute()
+    events = eventsResult.get('items', [])
+    if len(events)>0:
+        print(time.time)
+        if not events:
+            print('No upcoming events found.')
+        for event in events:
+            start = event['start'].get('dateTime', event['start'].get('date'))
+            try:
+                Person.objects.get(name=event['summary'])
+                slug=slugify(event['summary'])
+                print("success")
+                urlstring=('http://127.0.0.1:8000/directory/person/' + slug + '/email/')
+                print (urlstring)
+                driver = webdriver.PhantomJS()
+                driver.get(urlstring)
+            except Person.DoesNotExist:
+                print(start, event['summary'])
+           
