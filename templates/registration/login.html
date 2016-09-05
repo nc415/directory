@@ -2,15 +2,42 @@
 {% block content %}
 <h1>Login</h1>
 
-<div class="form-group">
-        <form method="post" action=".">
-                {% csrf_token %}
-                {{ form.as_p }}
 
-                <input class="btn btn-default" type="submit" value="Log in" />
-                <input type="hidden" name="next" value="{{ next }}" />
-                </form>
+ <p>
+   <ul>
+   {% if user and not user.is_anonymous %}
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+       <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+     </li>
+   {% else %}
+		   <div class="form-group">
+		        <form method="post" action=".">
+		                {% csrf_token %}
+		                {{ form.as_p }}
 
-        <p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+		                <input class="btn btn-default" type="submit" value="Log in" />
+		                <input type="hidden" name="next" value="{{ next }}" />
+		                </form>
 
+		        <p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+
+		 <div>
+		 <h1>Third-party authentication demo</h1>
+
+     <li>
+       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+     </li>
+   {% endif %}
+   </ul>
+ </p>
+ </div>
 {% endblock %}

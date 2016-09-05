@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^directory/', include('directory.urls')),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('django.contrib.auth.urls', namespace='auth')),
 ]

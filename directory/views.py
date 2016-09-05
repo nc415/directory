@@ -19,8 +19,10 @@ from django.template.loader import render_to_string, get_template
 from django.template import Context
 from django.http import HttpResponseRedirect
 from django.core.exceptions import MultipleObjectsReturned
-
-
+from urllib2 import urlopen, HTTPError
+import urllib2
+import json
+from json import dumps, loads
 def index(request):
 	if request.user.is_authenticated():
 		friend_list=Person.objects.filter(user=request.user).order_by('rank')
@@ -182,3 +184,18 @@ def email(request, person_name_slug):
 	'''email = EmailMessage('Subject', 'Body', to=['njcollins@live.co.uk'])
 	email.send()
 	return render(request, 'directory/page.html')'''
+def Facebook(request):
+	social_user = request.user.social_auth.filter(
+    provider='facebook',
+	).first()
+	if social_user:
+	    url = u'https://graph.facebook.com/{0}/' \
+	          u'friends?fields=id,name,location,picture' \
+	          u'&access_token={1}'.format(
+	              social_user.uid,
+	              social_user.extra_data['access_token'],
+	          )
+	    request2 = urllib2.Request(url)
+	    friends = json.loads(urllib2.urlopen(request).read()).get('data')
+	    print(friends)
+	return render(request, 'directory/facebook.html', {'friends':friends})
