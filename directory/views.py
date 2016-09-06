@@ -35,9 +35,16 @@ def index(request):
 	return render(request, 'directory/index.html', context=context_dict)
 
 def home(request):
+
+	profile = user.get_profile()
+	if profile is None:
+		profile = Profile(user_id=user.id)
+		print(profile)
+		gender = response.get('gender')
+		print(gender)
 	friend_list=Person.objects.filter(user=request.user).order_by('rank')
 	page_list=Page.objects.order_by('-created_at')
-	context_dict = {'Friends': friend_list, 'Page':page_list, }
+	context_dict = {'Friends': friend_list, 'Page':page_list, 'gender':gender, 'profile':profile}
 	
 	return render(request, 'directory/home.html', context=context_dict)
 
@@ -214,7 +221,8 @@ def Google(user):
     service = build(serviceName='calendar', version='v3', http=http,
            developerKey='...')
     
-        
+    return service
+    
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
     eventsResult = service.events().list(
