@@ -27,9 +27,10 @@ import urllib
 def index(request):
 	if request.user.is_authenticated():
 		friend_list=Person.objects.filter(user=request.user).order_by('rank')
+		page_list=Page.objects.order_by('-created_at')
 	else:
 		friend_list=Person.objects.order_by('rank')
-	page_list=Page.objects.order_by('-created_at')
+	
 	context_dict = {'Friends': friend_list, 'Page':page_list, }
 	
 	return render(request, 'directory/index.html', context=context_dict)

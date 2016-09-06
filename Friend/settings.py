@@ -145,10 +145,10 @@ REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged
 LOGIN_REDIRECT_URL = '/directory/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                                                 # and are trying to access pages requiring authentication
-REGISTRATION_DEFAULT_FROM_EMAIL = 'njcollins5@gmail.com'
+REGISTRATION_DEFAULT_FROM_EMAIL = 'myfriendsdirectory@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'njcollins5@gmail.com'
-EMAIL_HOST_PASSWORD = '01cheesebase'
+EMAIL_HOST_USER = 'myfriendsdirectory@gmail.com'
+EMAIL_HOST_PASSWORD = '/5zyC\wH">rWujbP'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
