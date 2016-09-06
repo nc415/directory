@@ -88,7 +88,8 @@ def show_page(request, person_name_slug, pageid):
 	return render(request, 'directory/page.html', context_dict)
 
 
-def add_person(request):
+def add_person(request, ):
+	
 	form=PersonForm()
 
 	if request.method =='POST':
@@ -97,7 +98,9 @@ def add_person(request):
 		# only if form is valid
 
 		if form.is_valid():
-			cat=form.save(commit=True)
+			cat=form.save(commit=False)
+			cat.user=request.user
+			cat.save()
 			print("Added Person with name:", cat, "and slug", cat.slug)
 			return index(request)
 		else:
@@ -207,44 +210,18 @@ def Facebook(request,):
 	    data = json.loads(response)
 	    print(data)
 	return render(request, 'directory/facebook.html', {'data':data})
-
 import httplib2
-from apiclient.discovery import build
-from oauth2client.client import AccessTokenCredentials
-
-
-def Google(User):
-    c = User.social_auth.GET(provider='google-oauth2')
-    access_token = c.tokens['access_token']
+from allauth.socialaccount.models import SocialToken
+def Google(request):
+    nicky=request.user
+    access_token = SocialToken.objects.filter(account__user=request.user, account__provider='google')
  
-    credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
-    http = httplib2.Http()
-    http = credentials.authorize(http)
-    service = build(serviceName='calendar', version='v3', http=http,
-           developerKey='...')
-    
-    return service
-    
+    ''' 
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
     eventsResult = service.events().list(
         calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
         orderBy='startTime').execute()
-    events = eventsResult.get('items', [])
-    if len(events)>0:
-        print(time.time)
-        if not events:
-            print('No upcoming events found.')
-        for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            try:
-                Person.objects.get(name=event['summary'])
-                slug=slugify(event['summary'])
-                print("success")
-                urlstring=('http://127.0.0.1:8000/directory/person/' + slug + '/email/')
-                print (urlstring)
-                driver = webdriver.PhantomJS()
-                driver.get(urlstring)
-            except Person.DoesNotExist:
-                print(start, event['summary'])
+    events = eventsResult.get('items', [])'''
+    return render(request, 'directory/google.html', {'access_token':access_token, 'nicky':nicky})
            

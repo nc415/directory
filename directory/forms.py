@@ -10,14 +10,14 @@ class PersonForm(forms.ModelForm):
 	name = forms.CharField(max_length=128, help_text="please enter a person name.")
 	#HiddenInput with an intial equal to 0 is essentially a way to set the default to 0
 	#We then dont include these fields when we define what to include in the class Meta:
-
+	user=forms.CharField(widget=forms.HiddenInput(),required=False )
 	slug=forms.CharField(widget=forms.HiddenInput(), required=False)
 
 	# provides additional information on form such as the link between the form
 	# and which model to use from Models.py, in this case, Category model
 	class Meta:
 		model = Person
-		exclude =('slug', 'rank')
+		exclude =('slug', 'rank', 'user')
 
 class PageForm(forms.ModelForm):
 	title=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Page Title'}), max_length=128)

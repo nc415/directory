@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'selectize',
     'directory',
-    'social.apps.django_app.default',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 
   
 
@@ -73,8 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social.apps.django_app.context_processors.backends',
-                'social.apps.django_app.context_processors.login_redirect',
+
             ],
         },
     },
@@ -152,20 +156,4 @@ EMAIL_HOST_PASSWORD = '/5zyC\wH">rWujbP'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-AUTHENTICATION_BACKENDS = (
-   'social.backends.facebook.FacebookOAuth2',
-   'social.backends.google.GoogleOAuth2',
-   'social.backends.twitter.TwitterOAuth',
-   'django.contrib.auth.backends.ModelBackend',
-   'social.backends.google.GooglePlusAuth',
-)
-SOCIAL_AUTH_FACEBOOK_SCOPE = [
-    'email',
-    'user_friends',
-   
-]
-SOCIAL_AUTH_FACEBOOK_KEY ='277715075944370'
-SOCIAL_AUTH_FACEBOOK_SECRET = '4de0590ce5de9b1fcadb629db3e7524e'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1088243739058-2l9upihat3jim8ggoei6mnf3fosq9373.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'qUG8BsYZOE1d4fXlcHLfQ_Ge'
+SITE_ID = 1

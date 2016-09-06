@@ -17,8 +17,8 @@ urlpatterns =[
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/edit$', views.edit_page, name='delete-person'),
 	url(r'^person/(?P<person_name_slug>[\w\-]+)/email', views.email , name = 'sendSimpleEmail'),
 	url(r'^home$', views.home , name = 'home'),
-	url(r'^facebook$', views.Facebook, name='facebook'),
-	url(r'^google$', views.Google, name='Google')
+	url(r'^google/', views.Google , name = 'home'),
+
 	
 
 ]
