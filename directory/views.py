@@ -72,6 +72,13 @@ def show_person(request, person_name_slug):
 	return render(request, 'directory/person.html', context_dict)
 
 
+def show_category(request, person_name_slug, category):
+
+	person=Person.objects.get(slug=person_name_slug)
+	category=Category.objects.get(Category=category)
+	
+	context_dict ={'category':category, 'person':person}
+	return render(request, 'directory/show_category.html', context_dict)
 
 
 
@@ -114,6 +121,7 @@ def add_person(request, ):
 def add_page(request, person_name_slug):
 	try:
 		person=Person.objects.get(slug=person_name_slug)
+		category=Category.objects.all()
 	except Person.DoesNotExist:
 		person=None
 	form=PageForm()
