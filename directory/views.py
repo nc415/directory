@@ -30,6 +30,7 @@ def index(request):
 		page_list=Page.objects.order_by('-created_at')
 	else:
 		friend_list=Person.objects.order_by('rank')
+		page_list=Page.objects.order_by('-created_at')
 	
 	context_dict = {'Friends': friend_list, 'Page':page_list, }
 	
@@ -212,8 +213,8 @@ from apiclient.discovery import build
 from oauth2client.client import AccessTokenCredentials
 
 
-def Google(user):
-    c = user.social_auth.get(provider='google-oauth2')
+def Google(User):
+    c = User.social_auth.GET(provider='google-oauth2')
     access_token = c.tokens['access_token']
  
     credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
