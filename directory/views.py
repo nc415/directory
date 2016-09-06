@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from directory.models import Person, Page, User
+from directory.models import Person, Page, User, Category
 from directory.forms import PersonForm,PageForm, UserProfileForm, UserForm, EditPageForm
 from django.db.models import manager
 
@@ -27,10 +27,11 @@ import urllib
 def index(request):
 	if request.user.is_authenticated():
 		friend_list=Person.objects.filter(user=request.user).order_by('rank')
-		page_list=Page.objects.order_by('-created_at')
+		page_list=Page.objects.filter(person=friend_list).order_by('-created_at')
+
 	else:
 		friend_list=Person.objects.order_by('rank')
-		page_list=Page.objects.order_by('-created_at')
+		page_list=None
 	
 	context_dict = {'Friends': friend_list, 'Page':page_list, }
 	
@@ -60,8 +61,10 @@ def show_person(request, person_name_slug):
 	try: 
 		person = Person.objects.get(slug=person_name_slug)
 		pages = Page.objects.filter(person=person)
+		category=Category.objects.all()
 		context_dict['pages']=pages
 		context_dict['person']=person
+		context_dict['category']=category
 	except Person.DoesNotExist:
 		context_dict['person'] = None
 		context_dict['pages']=None
