@@ -55,11 +55,12 @@ def about(request):
 	context_dict ={'yourname': "Nicky Collins"}
 	return render(request, 'directory/about.html', context=context_dict)
 
-def show_person(request, person_name_slug):
+def show_person(request, person_name_slug, username):
 	context_dict = {}
 
 	try: 
-		person = Person.objects.get(slug=person_name_slug)
+		user = User.objects.get(username=username)
+		person = Person.objects.filter(user=request.user).get(slug=person_name_slug)
 		pages = Page.objects.filter(person=person)
 		category=Category.objects.all()
 		context_dict['pages']=pages
@@ -72,8 +73,8 @@ def show_person(request, person_name_slug):
 	return render(request, 'directory/person.html', context_dict)
 
 
-def show_category(request, person_name_slug, categoryid):
-
+def show_category(request, person_name_slug, categoryid, username):
+	user = User.objects.get(username=username)
 	try:
 		person=Person.objects.get(slug=person_name_slug)
 		category1=Category.objects.get(categoryid=categoryid)
@@ -100,7 +101,8 @@ def show_category(request, person_name_slug, categoryid):
 	return render(request, 'directory/show_category.html', context_dict)
 
 
-def show_page(request, person_name_slug, pageid):
+def show_page(request, person_name_slug, pageid, username):
+	user = User.objects.get(username=username)
 	context_dict = {}
 
 	try: 
@@ -136,9 +138,10 @@ def add_person(request, ):
 	return render(request, 'directory/add_person.html', {'form':form})
 
 
-def add_page(request, person_name_slug):
+def add_page(request, person_name_slug, username):
+	user = User.objects.get(username=username)
 	try:
-		person=Person.objects.get(slug=person_name_slug)
+		person=Person.objects.filter(user=request.user).get(slug=person_name_slug)
 		category=Category.objects.all()
 	except Person.DoesNotExist:
 		person=None
@@ -153,20 +156,22 @@ def add_page(request, person_name_slug):
 				page.person=person
 				page.views=0
 				page.save()
-				return show_person(request, person_name_slug)
+				return show_person(request, person_name_slug, username)
 		else:
 			print (form.errors)
 	context_dict ={'form':form, 'person':person}
 	return render(request, 'directory/add_page.html', context_dict)
 
 
-def delete(request, person_name_slug, pageid):
-    query = Page.objects.get(pk=pageid)
-    query.delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'), {'query':query})
+def delete(request, person_name_slug, pageid, username):
+	user = User.objects.get(username=username)
+	query = Page.objects.get(pk=pageid)
+	query.delete()
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'), {'query':query})
 
 
-def edit_page(request, person_name_slug, pageid):
+def edit_page(request, person_name_slug, pageid, username):
+	user = User.objects.get(username=username)
     
 	query=Page.objects.get(pk=pageid)
 	
@@ -189,8 +194,9 @@ def edit_page(request, person_name_slug, pageid):
 	context_dict ={'form':form, 'person':person}
 	return render(request, 'directory/edit_page.html', context_dict)
 
-def email(request, person_name_slug):
-	person = Person.objects.get(slug=person_name_slug)
+def email(request, person_name_slug, username):
+	user = User.objects.get(username=username)
+	person = Person.objects.filter(user=request.user).get(slug=person_name_slug)
 	p1 = Page.objects.filter(person=person).order_by('-created_at')[:2]
 	address=None
 	email=["njcollins5@gmail.com"]
@@ -205,7 +211,7 @@ def email(request, person_name_slug):
 	context_dict = {}
 
 	try: 
-		person = Person.objects.get(slug=person_name_slug)
+		person = Person.objects.filter(user=request.user).get(slug=person_name_slug)
 		pages = Page.objects.filter(person=person).order_by('-created_at')[:2]
 		context_dict['pages']=pages
 		context_dict['person']=person

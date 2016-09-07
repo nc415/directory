@@ -20,7 +20,7 @@ with open('friendlist.csv', 'r') as csvfile:
 
 		def add_person(name, rank):
 			
-			c=Person.objects.get_or_create(name=name, rank=rank, user_id=21)[0]
+			c=Person.objects.get_or_create(name=name, rank=rank, user_id=2)[0]
 			return c
 
 		def add_page(person, title):

@@ -5,7 +5,7 @@
 
 <div class="indexcontainer">	
 	<h1> Add a new Page</h1>
-	<form class="form-horizontal", id="page_form", method="POST", action="/directory/person/{{person.slug}}/category/{{category.categoryid}}">
+	<form class="form-horizontal", id="page_form", method="POST", action="/directory/{{user.username}}/person/{{person.slug}}/category/{{category.categoryid}}">
 		<div class="form-group">
 			<div class="addpageform">
 				<div class="row">
@@ -23,7 +23,7 @@
 							<div class="addpagebutton">
 								<input type="submit" class="btn btn-info" name="submit" value="Create Page"/>
 								<a href="/directory/" class="btn btn-default" role="button">Index</a>
-								<a href="/directory/person/{{person.slug}}" class="btn btn-primary" role="button">Return</a>
+								<a href="/directory/{{user.username}}/person/{{person.slug}}" class="btn btn-primary" role="button">Return</a>
 							</div>
 						</div>
 					</div>

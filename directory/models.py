@@ -16,10 +16,10 @@ class UserProfile(models.Model):
 
 class Person(models.Model):
 	user=models.ForeignKey(User, default=20)
-	name=models.CharField(max_length=128, unique=True)
+	name=models.CharField(max_length=128, unique=False)
 	rank=models.IntegerField(null=True, unique=False)
 # Define as slug to use as the URL
-	slug = models.SlugField(blank=True, unique=True)
+	slug = models.SlugField(blank=True, unique=False)
 
 
 # override default save to allow for the saving of the name with slugify filter

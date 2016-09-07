@@ -16,13 +16,13 @@
 					<div class="col-sm-12">
 					    <tr>
        						<td width=400px, style='padding-right:20px;'>
-         						<a href="/directory/person/{{ person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
+         						<a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
       						</td>
        						<td>
          						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
        						</td>
        						<td width=200px>
-       						<a href="/directory/person/{{ person.slug }}/{{page.id}}/delete"><span class="fa fa-trash-o fa-2x" aria-hidden="true" style="margin-right:20px;"></span><a href="/directory/person/{{ person.slug }}/{{page.id}}/edit"><span class="fa fa-pencil fa-2x" aria-hidden="true"></span>
+       						<a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}/delete"><span class="fa fa-trash-o fa-2x" aria-hidden="true" style="margin-right:20px;"></span><a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}/edit"><span class="fa fa-pencil fa-2x" aria-hidden="true"></span>
        						</td>
    						</tr>
    					</div>
@@ -40,9 +40,9 @@
 	{% endif %}
 	<div class="buttons">
 	<a href="/directory/" class="btn btn-default" role="button">Index</a>
-	<a href="/directory/person/{{person.slug}}/add_page/" class="btn btn-primary" role="button">Add Page</a>
-	<a href="/directory/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
-	<a href="/directory/person/{{person.slug}}/category/2" class="btn btn-success" role="button">Cat Add</a>
+	<a href="/directory/{{user.username}}/person/{{person.slug}}/add_page/" class="btn btn-primary" role="button">Add Page</a>
+	<a href="/directory/{{user.username}}/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
+	<a href="/directory/{{user.username}}/person/{{person.slug}}/category/2" class="btn btn-success" role="button">Cat Add</a>
 	</div>
 	</div>
 </body>
