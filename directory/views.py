@@ -57,9 +57,8 @@ def about(request):
 
 def show_person(request, person_name_slug, username):
 	context_dict = {}
-
+	user = User.objects.get(username=username)
 	try: 
-		user = User.objects.get(username=username)
 		person = Person.objects.filter(user=request.user).get(slug=person_name_slug)
 		pages = Page.objects.filter(person=person)
 		category=Category.objects.all()
@@ -72,6 +71,19 @@ def show_person(request, person_name_slug, username):
 
 	return render(request, 'directory/person.html', context_dict)
 
+def select_category(request, person_name_slug, username):
+	user = User.objects.get(username=username)
+	context_dict = {}
+	try:
+		category=Category.objects.all()
+		person = Person.objects.filter(user=request.user).get(slug=person_name_slug)
+		context_dict['person']=person
+		context_dict['category']=category
+	except Person.DoesNotExist:
+		context_dict['person']=None
+		context_dict['category']=category
+
+	return render(request, 'directory/select_category.html', context_dict)
 
 def show_category(request, person_name_slug, categoryid, username):
 	user = User.objects.get(username=username)
@@ -94,7 +106,7 @@ def show_category(request, person_name_slug, categoryid, username):
 				page.person=person
 				page.views=0
 				page.save()
-				return show_person(request, person_name_slug)
+				return show_person(request, person_name_slug, username)
 		else:
 			print (form.errors)
 	context_dict ={'form':form, 'person':person, 'category':category1}

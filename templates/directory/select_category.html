@@ -1,0 +1,9 @@
+{% extends 'directory/base.html' %}
+{% block content %}
+{{person.name}}
+{% if category %}
+	{% for category in category %}
+		<a href="/directory/{{user.username}}/person/{{ person.slug }}/category/{{category.categoryid}}">{{category.name}}</a>
+	{%endfor%}
+	{%endif%}
+{% endblock %}

@@ -12,12 +12,18 @@
 						{%for hidden in form.hidden_fields%}
 							{{hidden}}
 						{% endfor %}
-						{% for field in form.visible_fields %}
-						
-							{{field.errors}}
-							{{field.help_text}}
-							{{field}}
-						{% endfor %}
+						{{field.title}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+  				<label for="comment">Comment:</label>
+  						<textarea class="form-control" rows="5" id="comment">{{field.description}}</textarea>
+		</div>
+
+
+
 							<div class="addpagebutton">
 								<input type="submit" class="btn btn-info" name="submit" value="Create Page"/>
 								<a href="/directory/" class="btn btn-default" role="button">Index</a>
