@@ -34,8 +34,10 @@ class Person(models.Model):
 
 class Category(models.Model):
 	name=models.CharField(max_length=128, unique=True)
+	categoryid = models.SlugField(blank=True, unique=True, default=0)
 	def __str__(self):
 		return self.name
+
 class Page(models.Model):
 	
 	person = models.ForeignKey(Person)

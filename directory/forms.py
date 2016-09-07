@@ -32,7 +32,7 @@ class PageForm(forms.ModelForm):
 		model = Page
 		#what fields to include in the form? In our model we have "category"
 		#as a field, but we dont want to include this, so specify what to include
-		exclude =('person','pageid','created_at' )
+		exclude =('person','pageid','created_at', 'category' )
 		abstract=True
 
 

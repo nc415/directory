@@ -72,14 +72,32 @@ def show_person(request, person_name_slug):
 	return render(request, 'directory/person.html', context_dict)
 
 
-def show_category(request, person_name_slug, category):
+def show_category(request, person_name_slug, categoryid):
 
-	person=Person.objects.get(slug=person_name_slug)
-	category=Category.objects.get(Category=category)
-	
-	context_dict ={'category':category, 'person':person}
+	try:
+		person=Person.objects.get(slug=person_name_slug)
+		category1=Category.objects.get(categoryid=categoryid)
+
+	except Person.DoesNotExist:
+		person=None
+
+	form=PageForm()
+
+	if request.method =='POST':
+		form=PageForm(request.POST)
+
+		if form.is_valid():
+			if person:	
+				page=form.save(commit=False)
+				page.category=category1
+				page.person=person
+				page.views=0
+				page.save()
+				return show_person(request, person_name_slug)
+		else:
+			print (form.errors)
+	context_dict ={'form':form, 'person':person, 'category':category1}
 	return render(request, 'directory/show_category.html', context_dict)
-
 
 
 def show_page(request, person_name_slug, pageid):
