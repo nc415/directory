@@ -13,7 +13,7 @@ class PageAdmin(admin.ModelAdmin):
 	list_display=('title',)
 class PersonAdmin(admin.ModelAdmin):
 	#code to display multiple columns in admin table
-	list_display = ('name', 'rank',)
+	list_display = ('name', 'rank', 'user')
 	#code to prepopulate the slug field when you type in a new category name
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Page, PageAdmin)

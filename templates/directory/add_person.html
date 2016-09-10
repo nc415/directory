@@ -1,6 +1,12 @@
 {% extends 'directory/base.html' %}
 {% block content %}
-
+  <script>
+    {% if messages %}
+        {% for message in messages %}
+            alert(message);
+        {% endfor %}
+    {% endif %}
+    </script>
 <div class="indexcontainer">
 	<h1> Add a Category </h1>
 	<form id="person_form" method="post" action="/directory/add_person">

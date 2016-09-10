@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from directory.models import Person, Page, User, Category
 from directory.forms import PersonForm,PageForm, UserProfileForm, UserForm, EditPageForm
 from django.db.models import manager
-
+from django.db import IntegrityError
 from django.conf.urls import patterns, include, url
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -129,7 +129,9 @@ def show_page(request, person_name_slug, pageid, username):
 
 	return render(request, 'directory/page.html', context_dict)
 
+def add_person_error(request):
 
+	return render(request, 'directory/add_personerror.html', )
 def add_person(request, ):
 	
 	form=PersonForm()
@@ -142,11 +144,17 @@ def add_person(request, ):
 		if form.is_valid():
 			cat=form.save(commit=False)
 			cat.user=request.user
-			cat.save()
-			print("Added Person with name:", cat, "and slug", cat.slug)
+			try:
+				cat.save()
+			except IntegrityError as e:
+   					return add_person_error(request)
+
+   					
 			return index(request)
 		else:
 			print(form.errors)
+		
+        #do something
 	return render(request, 'directory/add_person.html', {'form':form})
 
 
@@ -158,6 +166,7 @@ def add_page(request, person_name_slug, username):
 	except Person.DoesNotExist:
 		person=None
 	form=PageForm()
+
 
 	if request.method =='POST':
 		form=PageForm(request.POST)
@@ -173,7 +182,6 @@ def add_page(request, person_name_slug, username):
 			print (form.errors)
 	context_dict ={'form':form, 'person':person}
 	return render(request, 'directory/add_page.html', context_dict)
-
 
 def delete(request, person_name_slug, pageid, username):
 	user = User.objects.get(username=username)

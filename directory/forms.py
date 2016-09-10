@@ -5,6 +5,7 @@ from django.db.models import Q
 import itertools
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+import re
 class PersonForm(forms.ModelForm):
 
 	name = forms.CharField(max_length=128, help_text="please enter a person name.")
@@ -18,6 +19,20 @@ class PersonForm(forms.ModelForm):
 	class Meta:
 		model = Person
 		exclude =('slug', 'rank', 'user')
+	
+	def cleaned_data(self):
+		name = self.cleaned_data['name']
+		namestring=str(self.name)
+		user=str(self.user)
+		
+		nameslug = slugify(namestring)
+		userslug=slugify(user)
+		slug=userslug+"-"+nameslug
+		if Person.objects.filter(slug=slug).exists():
+			raise ValidationError
+		else:
+			raise ValidationError
+		return name
 
 class PageForm(forms.ModelForm):
 	title=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Page Title'}), max_length=128)

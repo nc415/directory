@@ -3,7 +3,9 @@ from django.conf.urls import patterns, include, url
 from django.template.defaultfilters import slugify
 from datetime import datetime
 from django.contrib.auth.models import User
-
+import random
+import string
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 class UserProfile(models.Model):
@@ -19,18 +21,33 @@ class Person(models.Model):
 	name=models.CharField(max_length=128, unique=False)
 	rank=models.IntegerField(null=True, unique=False)
 # Define as slug to use as the URL
-	slug = models.SlugField(blank=True, unique=False)
+	slug = models.SlugField(blank=True, unique=True)
 
 
 # override default save to allow for the saving of the name with slugify filter
 # This filter removes the spaces in multiple word sentences e.g. hello world becomes hello-world
+#.join(random.sample(string.ascii_lowercase, 1))
+	'''def validate_unique(self, exclude=None):
+		qs = Person.objects.filter(name=self.name)
+		raise ValidationError('Name must be unique per site')
+		'''
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(self.name)
+		s=random.randint(0,100)
+		name=str(self.name)
+		user=str(self.user)
+		joined=user + name
+		nameslug = slugify(name)
+		userslug=slugify(user)
+		self.slug=userslug+"-"+nameslug
+		
 		super(Person, self).save(*args, **kwargs)
+
 # Fix issue where the plural of category is categories NOT categorys
 	def __str__(self):
 			return self.name
+
+
 
 class Category(models.Model):
 	name=models.CharField(max_length=128, unique=True)
