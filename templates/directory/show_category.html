@@ -17,13 +17,9 @@
 						{%for hidden in form.hidden_fields%}
 							{{hidden}}
 						{% endfor %}
-
-						{% for field in form.visible_fields %}
-						
-							{{field.errors}}
-							{{field.help_text}}
-							{{field}}
-						{% endfor %}
+						{{field.category}}
+						<div id=field_one>{{form.title}}</div>
+						<div id=field_two>{{form.description}}</div>
 							<div class="addpagebutton">
 								<input type="submit" class="btn btn-info" name="submit" value="Create Page"/>
 								<a href="/directory/" class="btn btn-default" role="button">Index</a>
@@ -36,4 +32,5 @@
 		</form>
 	</div>
 </div>
+
 {% endblock %}
