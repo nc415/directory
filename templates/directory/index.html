@@ -39,10 +39,10 @@
 							<div class="col-sm-12">
 							    <tr>
 		       						<td width=400px, style='padding-right:20px;'>
-		         						<a href="/directory/person/{{ page.person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
+		         						<a href="/directory/{{user.username}}/person/{{ page.person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
 		      						</td>
 		       						<td>
-		         						<a href="/directory/person/{{page.person.slug}}">{{page.person}}</a>
+		         						<a href="/directory/{{user.username}}/person/{{page.person.slug}}">{{page.person}}</a>
 		       						</td>
 		       						<td max-width=200px>
 		       						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>

@@ -192,26 +192,24 @@ def delete(request, person_name_slug, pageid, username):
 
 def edit_page(request, person_name_slug, pageid, username):
 	user = User.objects.get(username=username)
-    
+	p1=pageid
 	query=Page.objects.get(pk=pageid)
 	
 	person=Person.objects.get(slug=person_name_slug)
-	form=EditPageForm(instance=query)
+	form=PageForm(instance=query)
 	
 	if request.method=='POST':
-		form = EditPageForm(request.POST, instance=pageid)
-		random=form.data['created_at']
-
+		form = PageForm(request.POST, instance=query)
+		
 		if form.is_valid():
 			if person:	
 				page=form.save(commit=False)
-				page.created_at=random
 				page.person=person
-				page.save(instance=pageid)
+				page.save()
+				return show_person(request, person_name_slug, username)
 
-	query.delete()
 	
-	context_dict ={'form':form, 'person':person}
+	context_dict ={'form':form, 'person':person, 'p1':p1}
 	return render(request, 'directory/edit_page.html', context_dict)
 
 def email(request, person_name_slug, username):
