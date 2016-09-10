@@ -192,7 +192,7 @@ def delete(request, person_name_slug, pageid, username):
 
 def edit_page(request, person_name_slug, pageid, username):
 	user = User.objects.get(username=username)
-	p1=pageid
+	
 	query=Page.objects.get(pk=pageid)
 	
 	person=Person.objects.get(slug=person_name_slug)
@@ -209,7 +209,7 @@ def edit_page(request, person_name_slug, pageid, username):
 				return show_person(request, person_name_slug, username)
 
 	
-	context_dict ={'form':form, 'person':person, 'p1':p1}
+	context_dict ={'form':form, 'person':person, 'p1':pageid}
 	return render(request, 'directory/edit_page.html', context_dict)
 
 def email(request, person_name_slug, username):
