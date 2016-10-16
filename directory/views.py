@@ -26,14 +26,16 @@ import urllib
 
 def index(request):
 	if request.user.is_authenticated():
-		friend_list=Person.objects.filter(user=request.user).order_by('rank')
-		page_list=Page.objects.filter(person=friend_list).order_by('-created_at')
+		friend_list=Person.objects.filter(user=request.user, classification="F").order_by('rank')
+		colleague_list=Person.objects.filter(user=request.user, classification="C").order_by('rank')
+		client_list=Person.objects.filter(user=request.user, classification="L").order_by('rank')
+		page_list=Page.objects.order_by('-created_at')
 
 	else:
 		friend_list=Person.objects.order_by('rank')
 		page_list=None
 	
-	context_dict = {'Friends': friend_list, 'Page':page_list, }
+	context_dict = {'Friends': friend_list, 'Colleague':colleague_list, 'Client':client_list, 'Page':page_list, }
 	
 	return render(request, 'directory/index.html', context=context_dict)
 

@@ -5,18 +5,45 @@
 <div class="row">
 	<div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 		<div class="indexcontainer">
-			<h1 align="center"> Friend Directory </h1>
-				{% if Friends %}
-					<select id="select-name" placeholder="Select a person..." >
+			<h2 align="center"> Friends </h2>
+					{% if Friends %}
+					<select id="select-friend-name" placeholder="Select a person..." >
 					{% for person in Friends %}
 						<option value="{{person.slug}}">{{person.name}}
 					{% endfor %}
 					</select>
-				<form role="form" id="contacts">
+					<form role="form" id="contacts">
                 	<input type="submit" value="Submit" class="btn btn-info btn-block"></form>
 					{% else%}
 					<strong> There are no friends in my list. </strong>
 				{% endif %}
+			<h2 align="center"> Colleagues </h2>
+					{% if Colleague %}
+					<select id="select-colleague-name" placeholder="Select a person..." >
+					{% for person in Colleague %}
+						<option value="{{person.slug}}">{{person.name}}
+					{% endfor %}
+					</select>
+					<form role="form" id="contacts-colleague">
+                	<input type="submit" value="Submit" class="btn btn-info btn-block"></form>
+					{% else%}
+					<strong> There are no friends in my list. </strong>
+				{% endif %}
+			<h2 align="center"> Clients </h2>
+					{% if Client %}
+					<select id="select-client-name" placeholder="Select a person..." >
+					{% for person in Client %}
+						<option value="{{person.slug}}">{{person.name}}
+					{% endfor %}
+					</select>
+					<form role="form" id="contacts-client">
+                	<input type="submit" value="Submit" class="btn btn-info btn-block"></form>
+					{% else%}
+					<strong> There are no friends in my list. </strong>
+				{% endif %}
+
+
+				
 			<div class="addbutton">	
 				<br><a href="/directory/add_person" class="btn btn-info" role="button">Add Person</a></br>
 			</div>
@@ -63,13 +90,41 @@
 <script>
 
 $(function() {
-    $('#select-name').selectize({    create:true, plugins: ['remove_button']
+    $('#select-friend-name').selectize({    create:true, plugins: ['remove_button']
 });
 
   $('#contacts').submit(function(e){
     e.preventDefault();
 
- window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+ window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-friend-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+   
+  });
+});
+
+
+
+$(function() {
+    $('#select-colleague-name').selectize({    create:true, plugins: ['remove_button']
+});
+
+  $('#contacts-colleague').submit(function(e){
+    e.preventDefault();
+
+ window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-colleague-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+   
+  });
+});
+
+
+
+$(function() {
+    $('#select-client-name').selectize({    create:true, plugins: ['remove_button']
+});
+
+  $('#contacts-client').submit(function(e){
+    e.preventDefault();
+
+ window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-client-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
    
   });
 });

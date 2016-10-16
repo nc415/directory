@@ -18,19 +18,16 @@ class UserProfile(models.Model):
 
 class Person(models.Model):
 	user=models.ForeignKey(User, default=20)
+	CLASSIFICATION_CHOICES= (
+        ('F', 'Friend'),
+        ('C', 'Colleague'),
+        ('L', 'Client'),
+    )
+	classification=models.CharField(max_length=1, choices=CLASSIFICATION_CHOICES)
 	name=models.CharField(max_length=128, unique=False)
 	rank=models.IntegerField(null=True, unique=False)
 # Define as slug to use as the URL
 	slug = models.SlugField(blank=True, unique=True)
-
-
-# override default save to allow for the saving of the name with slugify filter
-# This filter removes the spaces in multiple word sentences e.g. hello world becomes hello-world
-#.join(random.sample(string.ascii_lowercase, 1))
-	'''def validate_unique(self, exclude=None):
-		qs = Person.objects.filter(name=self.name)
-		raise ValidationError('Name must be unique per site')
-		'''
 
 	def save(self, *args, **kwargs):
 		s=random.randint(0,100)
