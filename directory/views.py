@@ -53,7 +53,7 @@ def home(request):
 
 def about(request):
 	context_dict ={'yourname': "Nicky Collins"}
-	return render(request, 'directory/about.html', context=context_dict)
+	return render(request, 'directory/about2.html', context=context_dict)
 
 def show_person(request, person_name_slug, username):
 	context_dict = {}

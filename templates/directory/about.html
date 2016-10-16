@@ -1,13 +1,119 @@
+{% extends 'directory/base.html' %}
+{% block content %}
 <!DOCTYPE html>
-{% load staticfiles%}
-<html>
-	<head>
-		<title>Directory</title>
-		<!-- CSSs -->
-		<link rel="stylesheet" href="{% static 'css/base.css'%}"/>
-	</head>
+<html lang="en">
+<head>
+  <title>Bootstrap Case</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<button id="myBtn">Open Modal</button>
 
-	<body>
-	This tutorial has been put together by {{yourname}}
-	</body>
-</html>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">×</span>
+    
+
+  <div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+    <li role="presentation"><a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">chart</a></li>
+ 
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home"></div>
+    <div role="tabpanel" class="tab-pane" id="chart"><canvas id="invest-chart"></canvas></div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+<script>
+
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+});
+
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+$('a[href=#chart]').on('shown.bs.tab', function(){
+  var data = [
+  {
+      value: 300,
+      color:"#F7464A",
+      highlight: "#FF5A5E",
+      label: "Red"
+  },
+  {
+      value: 50,
+      color: "#46BFBD",
+      highlight: "#5AD3D1",
+      label: "Green"
+  },
+  {
+      value: 100,
+      color: "#FDB45C",
+      highlight: "#FFC870",
+      label: "Yellow"
+  }
+  ];
+  var options = {
+     responsive : true,
+     animation: true,
+  };
+  var ctx1 = $("#invest-chart").get(0).getContext("2d");
+  var invest_chart;
+  new Chart(ctx1).Doughnut(data,  {
+     responsive : true,
+     animation: true,
+  });
+})
+</script>
+   
+        <script>
+            // line chart data
+          
+        </script>
+{% endblock %}
