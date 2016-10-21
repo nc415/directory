@@ -1,63 +1,117 @@
+
 {% extends 'directory/base.html' %}
+{% load static %}
 {% block content %}
 {{category.name}}
-<div class="indexcontainer">
-	<table class="table table-striped" style='margin-left: 0px; '>
-		{% if person %}
-			<h1>{{person.name}}</h1>
-		{%if pages%}
-		<thead>
-			<th>Description</th>
-			<th>Date</th>
-		</thead>
-		{% for page in pages %}
-			<div class="updatecontainer">
-	  			<div class="row">
-					<div class="col-sm-12">
-					    <tr>
-       						<td width=400px, style='padding-right:20px;'>
-         						<a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
-      						</td>
-       						<td>
-         						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
-       						</td>
-       						<td width=200px>
-       						<a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}/delete"><span class="fa fa-trash-o fa-2x" aria-hidden="true" style="margin-right:20px;"></span><a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}/edit"><span class="fa fa-pencil fa-2x" aria-hidden="true"></span>
-       						</td>
-   						</tr>
-   					</div>
-   				</div>
-   			</div>
-			{%endfor%}
-	</table>
-	<div class="buttons">
-			<a href="/directory/" class="btn btn-default" role="button">Index</a>
-			<a href="/directory/{{user.username}}/person/{{person.slug}}/select_category/" class="btn btn-primary" role="button">Add Page</a>
-			<a href="/directory/{{user.username}}/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
-			<a href="/directory/{{user.username}}/person/{{person.slug}}/category/2" class="btn btn-success" role="button">Cat Add</a>
-			</div>
-		</div>
-		{%else%}
-			<strong>No updates about this person. </strong>
-			<br></br>
-		<div class="buttons">
-			<a href="/directory/" class="btn btn-default" role="button">Index</a>
-			<a href="/directory/{{user.username}}/person/{{person.slug}}/select_category/" class="btn btn-primary" role="button">Add Page</a>
-			<a href="/directory/{{user.username}}/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
-			<a href="/directory/{{user.username}}/person/{{person.slug}}/category/2" class="btn btn-success" role="button">Cat Add</a>
-			</div>
-		</div>
-		{% endif %}
+<!--NAVIGATION -->
 
-	{% else %}
-		This person does not exist!
-		<br>
-		<p>
-		<div class="buttons">
-			<a href="/directory/" class="btn btn-default" role="button">Index</a>
-		</div>
+<div class="person-page-container">
+	<!--Navigation-->
+	<div class="row">
 	
-	{% endif %}
+	<div class="navigation-position">
+	<a href="/directory/">{{user.username}}</a> > <a href="/directory/">Friends</a> > {{person.name}}
+	</div>
+	</div>
+	</div>
+	<!--HEADER-->
+	<div class="row">
+		<div class="col-md-8">
+				<div class="header-container">
+					{% if person %}
+						<h1 id="person-name-header">{{person.name}}</h1>
+					{%if pages%}
+					<h5>Last Meetup: 01.01.16</h5>		
+				</div>
+		</div>
+		<div class="col-md-2">
+			<img src="{% static "images/bg.png" %}" alt="My image" align="middle" class="person-profile-image"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="pull-left">
+				<div class="person-profile-card" id="card-contact">
+					<div class="contact-details-header">Contact</div>
+					<div class="contact-details-content">Contact</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="pull-left">
+				<div class="person-profile-card" id="card-contact">
+					<div class="contact-details-header">Personal</div>
+					<div class="contact-details-content">Personal</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="pull-left">
+				<div class="person-profile-card" id="card-contact">
+					<div class="contact-details-header">Other</div>
+					<div class="contact-details-content">Other</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped" style='margin-left: 0px; '>
+			<thead>
+				<th>Description</th>
+				<th>Date</th>
+			</thead>
+			{% for page in pages %}
+				<div class="updatecontainer">
+		  			<div class="row">
+						<div class="col-sm-12">
+						    <tr>
+	       						<td width=400px, style='padding-right:20px;'>
+	         						<a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}"><div class="title">{{page.title}}</div>
+	      						</td>
+	       						<td>
+	         						<div class="date">{{page.created_at|date:"jS \o\f F"}}</div>
+	       						</td>
+	       						<td width=200px>
+	       						<a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}/delete"><span class="fa fa-trash-o fa-2x" aria-hidden="true" style="margin-right:20px;"></span><a href="/directory/{{user.username}}/person/{{ person.slug }}/{{page.id}}/edit"><span class="fa fa-pencil fa-2x" aria-hidden="true"></span>
+	       						</td>
+	   						</tr>
+	   					</div>
+	   				</div>
+	   			</div>
+				{%endfor%}
+		</table>
+		<div class="buttons">
+				<a href="/directory/" class="btn btn-default" role="button">Index</a>
+				<a href="/directory/{{user.username}}/person/{{person.slug}}/select_category/" class="btn btn-primary" role="button">Add Page</a>
+				<a href="/directory/{{user.username}}/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
+				<a href="/directory/{{user.username}}/person/{{person.slug}}/category/2" class="btn btn-success" role="button">Cat Add</a>
+				</div>
+			</div>
+			{%else%}
+				<strong>No updates about this person. </strong>
+				<br></br>
+			<div class="buttons">
+				<a href="/directory/" class="btn btn-default" role="button">Index</a>
+				<a href="/directory/{{user.username}}/person/{{person.slug}}/select_category/" class="btn btn-primary" role="button">Add Page</a>
+				<a href="/directory/{{user.username}}/person/{{person.slug}}/email/" class="btn btn-success" role="button">Email</a>
+				<a href="/directory/{{user.username}}/person/{{person.slug}}/category/2" class="btn btn-success" role="button">Cat Add</a>
+				</div>
+			</div>
+			{% endif %}
+
+		{% else %}
+			This person does not exist!
+			<br>
+			<p>
+			<div class="buttons">
+				<a href="/directory/" class="btn btn-default" role="button">Index</a>
+			</div>
+		
+		{% endif %}
+	</div>
+	</div>
+</div>
 </body>
 {% endblock %}

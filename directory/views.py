@@ -23,6 +23,9 @@ import json
 from urllib.request import urlopen
 import urllib.request
 import urllib
+import requests
+
+
 
 def index(request):
 	if request.user.is_authenticated():
@@ -32,6 +35,8 @@ def index(request):
 		page_list=Page.objects.order_by('-created_at')
 
 	else:
+		colleague_list=Person.objects.order_by('rank')
+		client_list=Person.objects.order_by('rank')
 		friend_list=Person.objects.order_by('rank')
 		page_list=None
 	

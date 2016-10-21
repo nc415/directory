@@ -55,6 +55,7 @@ def get_credentials():
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
+        print(credentials)
     return credentials
 
 def main():
@@ -67,7 +68,9 @@ def main():
     """
    
     credentials = get_credentials()
+    print(credentials)
     http = credentials.authorize(httplib2.Http())
+    print(http)
     service = discovery.build('calendar', 'v3', http=http)
 
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
@@ -100,11 +103,7 @@ def main():
     else:
         print("No upcoming events")
 
-schedule.every().day.at("23:59").do(main)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
 
 if __name__ == '__main__':
     main()
