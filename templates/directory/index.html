@@ -89,7 +89,50 @@
 </div>
 
 <script>
+for (var i=0;i<21;i++) {
+    
+}
 
+var trs = $("#internalActivities tr");
+var btnMore = $("#seeMoreRecords");
+var btnLess = $("#seeLessRecords");
+var trsLength = trs.length;
+var currentIndex = 4;
+
+trs.hide();
+trs.slice(0, 4).show(); 
+checkButton();
+
+btnMore.click(function (e) { 
+    e.preventDefault();
+    $("#internalActivities tr").slice(currentIndex, currentIndex + 4).show();
+    currentIndex += 4;
+    checkButton();
+});
+
+btnLess.click(function (e) { 
+    e.preventDefault();
+    $("#internalActivities tr").slice(currentIndex - 4, currentIndex).hide();          
+    currentIndex -= 4;
+    checkButton();
+});
+
+function checkButton() {
+    var currentLength = $("#internalActivities tr:visible").length;
+
+    if (currentLength >= trsLength) {
+        btnMore.hide();            
+    } else {
+        btnMore.show();   
+    }
+
+    if (trsLength > 4 && currentLength > 4) {
+        btnLess.show();
+    } else {
+        btnLess.hide();
+    }
+
+}
 $(function() {
     $('#select-friend-name').selectize({    create:true, plugins: ['remove_button']
 });

@@ -1,8 +1,11 @@
 
 
 html,body {
-	  height:100%;
-	  
+	margin: 0px;
+	height:100%;
+	background-color: #e8e6e6;
+	background-height: 100%;
+	background-repeat: repeat;
 	}
 #nav-side-bar{
 	position: fixed;
@@ -77,6 +80,7 @@ h5 {
 	border-radius: 50%;
 	width:200px;
 	height:200px;
+	/*-webkit-filter: blur(1px);*/
 }
 
 #person-name-header{
@@ -154,12 +158,7 @@ h5 {
     text-decoration: none;
     cursor: pointer;}
 
-body {
-	/*background-image: url("../images/bg.png");*/
-	background-color: #e8e6e6;
-	background-height: 100%;
-	background-repeat: repeat;
-}
+
 .update{
 	width: 50px;
     overflow: hidden;
@@ -208,10 +207,7 @@ h1 {
 	font-size: 90px;
 }
 
-body {
-	background-image: None;
-	background-color: #e8e6e6;;
-}
+
 #internalActivities{ font-size: 50px; }
 #hide {
 	display:none;

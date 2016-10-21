@@ -3,7 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Friend.settings')
 
 import django
 django.setup()
-from directory.models import Page, Person
+from directory.models import Page, Person, User
 from datetime import datetime
 import csv 
 
@@ -15,12 +15,12 @@ with open('friendlist.csv', 'r') as csvfile:
 
 		def populate():
 
-			person1 = add_person(name=row[0], rank=row[1] )
+			person1 = add_person(name=row[0], rank=row[1], fb=row[2], profile=row[3] )
 			
 
-		def add_person(name, rank):
-			
-			c=Person.objects.get_or_create(name=name, rank=rank, user_id=18)[0]
+		def add_person(name, rank, fb, profile):
+			User_Item=User.objects.get(email="njcollins@live.co.uk")
+			c=Person.objects.get_or_create(name=name, rank=rank,profile_picture=profile, FB_link=fb, user=User_Item, classification="F")
 			return c
 
 		def add_page(person, title):
