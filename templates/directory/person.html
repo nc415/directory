@@ -20,7 +20,7 @@
 				<div class="header-container">
 					{% if person %}
 						<h1 id="person-name-header">{{person.name}}</h1>
-					{%if pages%}
+					
 					<h5>Last Meetup: 01.01.16</h5>		
 				</div>
 		</div>
@@ -33,7 +33,13 @@
 			<div class="pull-left">
 				<div class="person-profile-card" id="card-contact">
 					<div class="contact-details-header">Contact</div>
-					<div class="contact-details-content">Contact</div>
+					<div class="contact-details-content">
+					{{person.contact_email}}
+					<br />{{person.contact_number}}
+					<br />{{person.birthday}}
+
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -41,7 +47,10 @@
 			<div class="pull-left">
 				<div class="person-profile-card" id="card-contact">
 					<div class="contact-details-header">Personal</div>
-					<div class="contact-details-content">Personal</div>
+					<div class="contact-details-content">Mum: {{person.mum_name}}
+					<br />Dad: {{person.dad_name}}
+					<br />Siblings: {{person.sibling_names}}
+					<br />Partner: {{person.partner_name}}</div>
 				</div>
 			</div>
 		</div>
@@ -54,7 +63,7 @@
 			</div>
 		</div>
 	</div>
-
+	{% if pages %}
 	<div class="row">
 	<div class="col-md-12">
 		<table class="table table-striped" style='margin-left: 0px; '>
