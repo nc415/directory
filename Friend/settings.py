@@ -41,12 +41,7 @@ INSTALLED_APPS = [
     'selectize',
     'directory',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-
+   
   
 
 ]
