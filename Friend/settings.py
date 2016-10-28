@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'selectize',
     'directory',
     'django.contrib.sites',
-   
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
   
 
 ]
@@ -151,6 +156,8 @@ EMAIL_HOST_USER = 'myfriendsdirectory@gmail.com'
 EMAIL_HOST_PASSWORD = '/5zyC\wH">rWujbP'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+SITE_ID = 1
 
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
