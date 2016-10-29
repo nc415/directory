@@ -44,6 +44,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='User',
-            name='auth_permission'
+            name='auth_permission',
             field=models.CharField(max_length=100))
     ]
