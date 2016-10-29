@@ -42,7 +42,7 @@ class Person(models.Model):
 	#personal
 	mum_name=models.CharField(max_length=128, blank=True, unique=False)
 	dad_name=models.CharField(max_length=128, blank=True, unique=False)
-	sibling_names=models.CharField(max_length=500, blank=True, unique=False)
+	sibling_names=models.CharField(max_length=128, blank=True, unique=False)
 	partner_name=models.CharField(max_length=128, blank=True, unique=False)
 
 
