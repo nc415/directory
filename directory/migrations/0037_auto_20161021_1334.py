@@ -40,6 +40,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='sibling_names',
-            field=models.CharField(blank=True, max_length=500),
+            field=models.CharField(blank=True, max_length=128),
         ),
+        migrations.AddField(
+            model_name='User',
+            name='auth_permission'
+            field=models.CharField(max_length=100))
     ]
