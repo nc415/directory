@@ -24,7 +24,7 @@ class Person(models.Model):
         ('C', 'Colleague'),
         ('L', 'Client'),
     )
-	classification=models.CharField(choices=CLASSIFICATION_CHOICES)
+	classification=models.CharField(max_length=128, choices=CLASSIFICATION_CHOICES)
 
 	name=models.CharField(max_length=128, unique=False)
 	
