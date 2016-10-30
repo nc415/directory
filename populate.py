@@ -31,5 +31,6 @@ with open('friendlist.csv', 'r') as csvfile:
 			if __name__ == '__main__':
 				print("Starting population script")
 				populate()
-	except UnicodeDecodeError():
+	except UnicodeDecodeError:
+		print ("Unicode Decode Error, Passing....")
 		pass
