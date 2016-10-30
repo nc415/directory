@@ -26,7 +26,7 @@ with open('friendlist.csv', 'r') as csvfile:
 					return c
 				except UnicodeDecodeError:
 					print ("Unicode Decode Error, Passing....")
-					pass
+					
 
 			def add_page(person, title):
 				p=Page.objects.get_or_create(title=title, person=person)[0]
