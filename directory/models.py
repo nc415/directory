@@ -30,7 +30,7 @@ class Person(models.Model):
 	
 	rank=models.IntegerField(null=True, unique=False)
 	# Define as slug to use as the URL
-	slug = models.SlugField(blank=True, unique=True)
+	slug = models.SlugField(blank=True, unique=False)
 	profile_picture=models.URLField(blank=True, unique=False)
 	FB_link=models.URLField(blank=True, unique=False)
 	
