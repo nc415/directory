@@ -140,7 +140,7 @@ $(function() {
   $('#contacts').submit(function(e){
     e.preventDefault();
 
- window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-friend-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+ window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-friend-name').val()).replace(/\"/g,'')));
    
   });
 });
@@ -154,7 +154,7 @@ $(function() {
   $('#contacts-colleague').submit(function(e){
     e.preventDefault();
 
- window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-colleague-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+ window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-colleague-name').val()).replace(/\"/g,'')));
    
   });
 });
@@ -168,7 +168,7 @@ $(function() {
   $('#contacts-client').submit(function(e){
     e.preventDefault();
 
- window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-client-name').val()))).replace(/%5B/g, '').replace(/%5D/g, '').replace(/^"/, '').replace(/"$/, '');
+ window.location.href = "/directory/{{user.username}}/person/"+ (encodeURIComponent(JSON.stringify($('#select-client-name').val()).replace(/\"/g,'')));
    
   });
 });

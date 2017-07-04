@@ -9,7 +9,7 @@
 				{% if Friends %}
 					<select id="select-name" placeholder="Select a person..." >
 					{% for person in Friends %}
-						<option value="{{person.slug}}">{{person.name}}
+						<option value={{person.slug}}>{{person.name}}
 					{% endfor %}
 					</select>
 				<form role="form" id="contacts">

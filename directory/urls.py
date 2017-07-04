@@ -11,7 +11,7 @@ urlpatterns =[
 #n [\w\-]+) will look
 #for any sequence of alphanumeric characters e.g. a-z, A-Z, or 0-9 denoted by \w and any hyphens
 #(-) denoted by \-, and we can match as many of these as we like denoted by the [ ]+ expression.
-	url(r'^(?P<username>[\w\-]+)/person/"(?P<person_name_slug>[\w\-]+)"/$', views.show_person, name='show_person'),
+	url(r'^(?P<username>[\w\-]+)/person/(?P<person_name_slug>[\w\-]+)/$', views.show_person, name='show_person'),
 	url(r'^(?P<username>[\w\-]+)/person/(?P<person_name_slug>[\w\-]+)/$', views.show_person, name='show_person'),
 	url(r'^(?P<username>[\w\-]+)/person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)$', views.show_page, name='show_page'),
 	url(r'^(?P<username>[\w\-]+)/person/(?P<person_name_slug>[\w\-]+)/(?P<pageid>[\w\-]+)/delete$', views.delete, name='delete-person'),
