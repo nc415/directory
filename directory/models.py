@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 		return self.user.username
 
 class Person(models.Model):
-	user=models.ForeignKey(User, default=20)
+	user=models.ForeignKey(User)
 	
 	CLASSIFICATION_CHOICES= (
         ('F', 'Friend'),
@@ -30,7 +30,7 @@ class Person(models.Model):
 	
 	rank=models.IntegerField(null=True, unique=False)
 	# Define as slug to use as the URL
-	slug = models.SlugField(blank=True, unique=False)
+	slug = models.SlugField(blank=True, unique=True)
 	profile_picture=models.URLField(blank=True, unique=False)
 	FB_link=models.URLField(blank=True, unique=False)
 	
@@ -53,7 +53,6 @@ class Person(models.Model):
 		s=random.randint(0,100)
 		name=str(self.name)
 		user=str(self.user)
-		joined=user + name
 		nameslug = slugify(name)
 		userslug=slugify(user)
 		self.slug=userslug+"-"+nameslug

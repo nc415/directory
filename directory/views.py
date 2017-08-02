@@ -151,10 +151,10 @@ def add_person(request, ):
 		if form.is_valid():
 			cat=form.save(commit=False)
 			cat.user=request.user
-			try:
-				cat.save()
-			except IntegrityError as e:
-   					return add_person_error(request)
+			#try:
+			cat.save()
+			#except IntegrityError as e:
+   			#		return add_person_error(request)
 
    					
 			return index(request)
